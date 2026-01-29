@@ -1,0 +1,127 @@
+{
+  "title": "Get in Touch",
+  "subtitle": "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+  "contact": {
+    "email": "info@zora-edu.ae",
+    "phone": "+971 XX XXX XXXX",
+    "address": "Dubai, United Arab Emirates",
+    "whatsapp": "+971 XX XXX XXXX"
+  },
+  "social": {
+    "facebook": "https://facebook.com/zora-edu",
+    "twitter": "https://twitter.com/zora-edu",
+    "instagram": "https://instagram.com/zora-edu",
+    "linkedin": "https://linkedin.com/company/zora-edu"
+  },
+  "form": {
+    "fields": [
+      {
+        "name": "name",
+        "label": "Full Name",
+        "type": "text",
+        "placeholder": "Enter your full name",
+        "required": true
+      },
+      {
+        "name": "email",
+        "label": "Email Address",
+        "type": "email",
+        "placeholder": "Enter your email address",
+        "required": true
+      },
+      {
+        "name": "subject",
+        "label": "Subject",
+        "type": "select",
+        "options": [
+          "General Inquiry",
+          "Sales",
+          "Support",
+          "Partnership",
+          "Other"
+        ],
+        "required": true
+      },
+      {
+        "name": "message",
+        "label": "Message",
+        "type": "textarea",
+        "placeholder": "How can we help you?",
+        "required": true
+      }
+    ],
+    "submitText": "Send Message",
+    "successMessage": "Message sent successfully. We will get back to you soon.",
+    "errorMessage": "Failed to send message. Please try again."
+  },
+  "b2b": {
+    "title": "Partner with Zora",
+    "subtitle": "Transform your school or institution with AI-powered education solutions",
+    "form": {
+      "fields": [
+        {
+          "name": "name",
+          "label": "Contact Name",
+          "type": "text",
+          "placeholder": "Your full name",
+          "required": true
+        },
+        {
+          "name": "email",
+          "label": "Business Email",
+          "type": "email",
+          "placeholder": "your@company.com",
+          "required": true
+        },
+        {
+          "name": "company",
+          "label": "Company/Organization Name",
+          "type": "text",
+          "placeholder": "Your company name",
+          "required": true
+        },
+        {
+          "name": "phone",
+          "label": "Phone Number",
+          "type": "tel",
+          "placeholder": "+971 XX XXX XXXX",
+          "required": false
+        },
+        {
+          "name": "role",
+          "label": "Your Role",
+          "type": "text",
+          "placeholder": "e.g., Principal, IT Director",
+          "required": false
+        },
+        {
+          "name": "companySize",
+          "label": "Company Size",
+          "type": "select",
+          "options": [
+            "1-50",
+            "51-200",
+            "201-1000",
+            "1000+"
+          ],
+          "required": false
+        },
+        {
+          "name": "requirements",
+          "label": "What are your requirements?",
+          "type": "textarea",
+          "placeholder": "Tell us about your education technology needs...",
+          "required": false
+        }
+      ],
+      "submitText": "Request Demo",
+      "successMessage": "B2B request received. We will contact you within 24 hours.",
+      "errorMessage": "Failed to submit request. Please try again."
+    }
+  },
+  "officeHours": {
+    "title": "Office Hours",
+    "days": "Sunday - Thursday",
+    "time": "9:00 AM - 6:00 PM (GST)"
+  }
+}

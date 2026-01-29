@@ -1,0 +1,58 @@
+{
+  "title": "What Parents Say",
+  "subtitle": "Join thousands of happy families who trust Zora for their children's education",
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Sarah Ahmed",
+      "role": "Parent of 2",
+      "avatar": "SA",
+      "content": "My children have become so engaged with learning since we started using Zora. The AI adapts perfectly to their individual needs and they actually look forward to studying now!",
+      "rating": 5
+    },
+    {
+      "id": 2,
+      "name": "Mohammed Al-Rashid",
+      "role": "Parent of 3",
+      "avatar": "MA",
+      "content": "The AR experiences are incredible. My son was struggling with science, but after using Zora's virtual labs, his grades have improved significantly.",
+      "rating": 5
+    },
+    {
+      "id": 3,
+      "name": "Fatima Hassan",
+      "role": "Parent of 1",
+      "avatar": "FH",
+      "content": "The parent dashboard gives me complete visibility into my daughter's progress. I know exactly where she excels and where she needs help. Highly recommended!",
+      "rating": 5
+    },
+    {
+      "id": 4,
+      "name": "Omar Khalifa",
+      "role": "Parent of 2",
+      "avatar": "OK",
+      "content": "Zora has transformed how my kids learn. The personalized approach means they're never bored or overwhelmed - always challenged just right.",
+      "rating": 5
+    },
+    {
+      "id": 5,
+      "name": "Aisha Mirza",
+      "role": "Parent of 4",
+      "avatar": "AM",
+      "content": "The family plan is perfect for us. All four kids have their own personalized learning paths and I can track everyone's progress from one place.",
+      "rating": 5
+    },
+    {
+      "id": 6,
+      "name": "Ahmed Zayed",
+      "role": "Parent of 1",
+      "avatar": "AZ",
+      "content": "The customer support team is fantastic. They helped us get set up quickly and were always available to answer questions. Great platform!",
+      "rating": 5
+    }
+  ],
+  "stats": {
+    "totalReviews": 2500,
+    "averageRating": 4.9
+  }
+}

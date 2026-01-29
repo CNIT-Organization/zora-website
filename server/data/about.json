@@ -1,0 +1,57 @@
+{
+  "company": {
+    "name": "Zora Education",
+    "tagline": "Revolutionizing Education in the UAE",
+    "shortDescription": "AI-powered learning platform for children",
+    "description": "Zora is transforming how children learn by leveraging cutting-edge artificial intelligence and immersive technologies. Our platform creates personalized learning experiences that adapt to each child's unique strengths and learning style.",
+    "founded": "2023",
+    "headquarters": "Dubai, UAE",
+    "mission": "To make quality education accessible and engaging for every child through innovative technology",
+    "vision": "To become the leading AI-powered education platform in the Middle East and beyond"
+  },
+  "stats": [
+    { "value": "50K+", "label": "Students" },
+    { "value": "98%", "label": "Satisfaction" },
+    { "value": "100+", "label": "Schools" }
+  ],
+  "values": [
+    {
+      "title": "Innovation",
+      "description": "Constantly pushing the boundaries of what's possible in education technology"
+    },
+    {
+      "title": "Personalization",
+      "description": "Every child learns differently - we adapt to their unique needs"
+    },
+    {
+      "title": "Excellence",
+      "description": "Delivering world-class educational experiences"
+    },
+    {
+      "title": "Accessibility",
+      "description": "Making quality education available to everyone"
+    }
+  ],
+  "features": [
+    {
+      "title": "AI-Powered Learning",
+      "description": "Our intelligent algorithms adapt content to your child's pace and learning style",
+      "icon": "brain"
+    },
+    {
+      "title": "Virtual Avatars",
+      "description": "Create and customize virtual avatars that make learning fun and engaging",
+      "icon": "user"
+    },
+    {
+      "title": "AR Experiences",
+      "description": "Immersive augmented reality brings subjects to life in your home",
+      "icon": "box"
+    },
+    {
+      "title": "Real-time Progress",
+      "description": "Track your child's development with detailed analytics and reports",
+      "icon": "chart"
+    }
+  ]
+}

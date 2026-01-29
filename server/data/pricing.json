@@ -1,0 +1,136 @@
+{
+  "heading": "Invest in Your Child's Future Today",
+  "subtitle": "Flexible plans designed for every family. All plans include full access to our AI-powered learning platform.",
+  "wizardCta": "Not sure which plan? Take our 1-minute quiz",
+  "moneyBackGuarantee": {
+    "text": "14-day money-back guarantee. No questions asked."
+  },
+  "plans": [
+    {
+      "id": "starter-3-3",
+      "name": "Starter",
+      "description": "Perfect for families getting started with AI learning",
+      "durationMonths": 3,
+      "studentQuota": 3,
+      "priceAED": 299,
+      "pricePerMonthAED": 99,
+      "discountPercentage": null,
+      "isPopular": false,
+      "features": [
+        "Up to 3 student accounts",
+        "AI-powered personalized learning",
+        "Basic avatar customization",
+        "Access to core curriculum",
+        "Weekly progress reports"
+      ]
+    },
+    {
+      "id": "standard-6-3",
+      "name": "Standard",
+      "description": "Most popular choice for growing families",
+      "durationMonths": 6,
+      "studentQuota": 3,
+      "priceAED": 549,
+      "pricePerMonthAED": 91,
+      "discountPercentage": 8,
+      "isPopular": true,
+      "features": [
+        "Everything in Starter",
+        "6 months of access",
+        "Advanced avatar customization",
+        "AR/VR experiences",
+        "Priority support",
+        "Monthly progress insights"
+      ]
+    },
+    {
+      "id": "premium-12-3",
+      "name": "Premium",
+      "description": "Complete learning experience with all features",
+      "durationMonths": 12,
+      "studentQuota": 3,
+      "priceAED": 999,
+      "pricePerMonthAED": 83,
+      "discountPercentage": 16,
+      "isPopular": false,
+      "features": [
+        "Everything in Standard",
+        "12 months of access",
+        "Unlimited avatar accessories",
+        "All AR/VR experiences",
+        "Dedicated account manager",
+        "Weekly progress insights",
+        "Family dashboard",
+        "Early access to new features"
+      ]
+    },
+    {
+      "id": "family-3-6",
+      "name": "Family Starter",
+      "description": "For larger families getting started",
+      "durationMonths": 3,
+      "studentQuota": 6,
+      "priceAED": 499,
+      "pricePerMonthAED": 166,
+      "discountPercentage": null,
+      "isPopular": false,
+      "features": [
+        "Up to 6 student accounts",
+        "AI-powered personalized learning",
+        "Basic avatar customization",
+        "Access to core curriculum",
+        "Weekly progress reports"
+      ]
+    },
+    {
+      "id": "family-6-6",
+      "name": "Family Standard",
+      "description": "Most popular for larger families",
+      "durationMonths": 6,
+      "studentQuota": 6,
+      "priceAED": 899,
+      "pricePerMonthAED": 149,
+      "discountPercentage": 10,
+      "isPopular": true,
+      "features": [
+        "Everything in Family Starter",
+        "6 months of access",
+        "Advanced avatar customization",
+        "AR/VR experiences",
+        "Priority support",
+        "Monthly progress insights"
+      ]
+    },
+    {
+      "id": "family-12-6",
+      "name": "Family Premium",
+      "description": "Complete experience for the whole family",
+      "durationMonths": 12,
+      "studentQuota": 6,
+      "priceAED": 1499,
+      "pricePerMonthAED": 124,
+      "discountPercentage": 25,
+      "isPopular": false,
+      "features": [
+        "Everything in Family Standard",
+        "12 months of access",
+        "Unlimited avatar accessories",
+        "All AR/VR experiences",
+        "Dedicated account manager",
+        "Weekly progress insights",
+        "Family dashboard",
+        "Early access to new features"
+      ]
+    }
+  ],
+  "quotaOptions": [
+    { "value": 3, "label": "Up to 3 Kids" },
+    { "value": 6, "label": "Family (6 Kids)" }
+  ],
+  "durationOptions": [
+    { "value": 3, "label": "3 Months" },
+    { "value": 6, "label": "6 Months" },
+    { "value": 12, "label": "1 Year" }
+  ],
+  "compareAllLabel": "Compare All Plans"
+}
