@@ -1,0 +1,48 @@
+{
+  "title": "Why Choose Zora?",
+  "subtitle": "Discover the features that make our platform unique",
+  "features": [
+    {
+      "id": 1,
+      "title": "AI-Powered Learning",
+      "description": "Our intelligent algorithms analyze your child's performance and adapt the curriculum to their unique learning style, ensuring optimal progress at their own pace.",
+      "icon": "brain",
+      "highlight": true
+    },
+    {
+      "id": 2,
+      "title": "Virtual Avatars",
+      "description": "Create and customize virtual avatars that accompany your child through their learning journey, making education fun, interactive, and personalized.",
+      "icon": "user",
+      "highlight": true
+    },
+    {
+      "id": 3,
+      "title": "Augmented Reality",
+      "description": "Experience subjects like never before with our AR technology. From exploring ancient civilizations to conducting virtual science experiments.",
+      "icon": "box",
+      "highlight": true
+    },
+    {
+      "id": 4,
+      "title": "Real-time Progress Tracking",
+      "description": "Get detailed insights into your child's learning journey with comprehensive analytics, progress reports, and personalized recommendations.",
+      "icon": "chart",
+      "highlight": false
+    },
+    {
+      "id": 5,
+      "title": "Interactive Lessons",
+      "description": "Engage with dynamic, interactive content that brings abstract concepts to life through animations, simulations, and gamified learning.",
+      "icon": "play",
+      "highlight": false
+    },
+    {
+      "id": 6,
+      "title": "Parent Dashboard",
+      "description": "Stay connected with your child's education through a comprehensive parent dashboard that provides real-time updates and actionable insights.",
+      "icon": "layout",
+      "highlight": false
+    }
+  ]
+}
