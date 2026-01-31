@@ -1,6 +1,6 @@
 FROM node:20-alpine AS builder
 
-ARG VITE_API_URL=https://zora-edu.ae/api
+ARG VITE_API_URL=http://localhost:3001/api
 WORKDIR /app
 
 COPY package.json package-lock.json ./

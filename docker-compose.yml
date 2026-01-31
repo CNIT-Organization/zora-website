@@ -21,7 +21,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - VITE_API_URL=${VITE_API_URL:-https://zora-edu.ae/api}
+        - VITE_API_URL=${VITE_API_URL:-http://localhost:3001/api}
     container_name: zora-frontend
     restart: unless-stopped
     ports:
@@ -31,7 +31,6 @@ services:
       - caddy_config:/config
     networks:
       - app-network
-      - gateway
     depends_on:
       backend:
         condition: service_healthy
@@ -41,17 +40,10 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-    labels:
-      - "caddy=zora-edu.ae"
-      - "caddy.reverse_proxy={{upstreams 80}}"
-      - "caddy_1=www.zora-edu.ae"
-      - "caddy_1.redir=https://zora-edu.ae{uri}"
 
 networks:
   app-network:
     driver: bridge
-  gateway:
-    external: true
 
 volumes:
   caddy_data:
