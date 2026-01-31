@@ -1,28 +1,42 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
 import { env } from '@/config/env';
+import { useNavigate } from 'react-router-dom';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const navigate = useNavigate();
+
+  const handleScroll = (href: string) => {
+    if (href.startsWith('#')) {
+      const element = document.getElementById(href.slice(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      } else if (window.location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => {
+          const el = document.getElementById(href.slice(1));
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  };
 
   const footerLinks = {
     product: [
-      { label: 'Features', href: '#features' },
-      { label: 'Pricing', href: '#pricing' },
-      { label: 'Roadmap', href: '#roadmap' },
-      { label: 'For Schools', href: '#b2b' },
+      { label: 'Features', href: '#features', onClick: () => handleScroll('#features') },
+      { label: 'Pricing', href: '#pricing', onClick: () => handleScroll('#pricing') },
+      { label: 'Roadmap', href: '#roadmap', onClick: () => handleScroll('#roadmap') },
+      { label: 'For Schools', href: '#b2b', onClick: () => handleScroll('#b2b') },
     ],
     company: [
-      { label: 'About Us', href: '#' },
-      { label: 'Careers', href: '#' },
-      { label: 'Blog', href: '#' },
-      { label: 'Press Kit', href: '#' },
+      { label: 'About Us', href: '/about', onClick: () => navigate('/about') },
+      { label: 'Press Kit', href: '/press', onClick: () => navigate('/press') },
     ],
     support: [
-      { label: 'Help Center', href: '#' },
-      { label: 'Contact Us', href: '#' },
-      { label: 'Privacy Policy', href: '#' },
-      { label: 'Terms of Service', href: '#' },
+      { label: 'Contact Us', href: '/contact', onClick: () => navigate('/contact') },
+      { label: 'Privacy Policy', href: '/privacy', onClick: () => navigate('/privacy') },
+      { label: 'Terms of Service', href: '/terms', onClick: () => navigate('/terms') },
     ],
   };
 
@@ -77,12 +91,12 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.product.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  <button
+                    onClick={link.onClick}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left bg-transparent border-none cursor-pointer"
                   >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -94,12 +108,12 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  <button
+                    onClick={link.onClick}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left bg-transparent border-none cursor-pointer"
                   >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -111,12 +125,12 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  <button
+                    onClick={link.onClick}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left bg-transparent border-none cursor-pointer"
                   >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>

@@ -17,9 +17,9 @@ RUN addgroup -g 1001 -S nodejs && \
 
 USER nodejs
 
-EXPOSE 3001
+EXPOSE 8000
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD wget --quiet --tries=1 --spider http://localhost:3001/api/health || exit 1
+  CMD wget --quiet --tries=1 --spider http://localhost:8000/api/health || exit 1
 
 CMD ["node", "src/index.js"]
