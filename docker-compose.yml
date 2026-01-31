@@ -10,7 +10,7 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/api/health" ]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -21,9 +21,11 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - VITE_API_URL=https://zora-edu.ae/api
+        - VITE_API_URL=${VITE_API_URL:-https://zora-edu.ae/api}
     container_name: zora-frontend
     restart: unless-stopped
+    ports:
+      - "80:80"
     volumes:
       - caddy_data:/data
       - caddy_config:/config
@@ -34,16 +36,16 @@ services:
       backend:
         condition: service_healthy
     healthcheck:
-      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80" ]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
     labels:
-      caddy_0: zora-edu.ae
-      caddy_0.reverse_proxy: "{{upstreams 80}}"
-      caddy_1: www.zora-edu.ae
-      caddy_1.redir: "https://zora-edu.ae{uri}"
+      - "caddy=zora-edu.ae"
+      - "caddy.reverse_proxy={{upstreams 80}}"
+      - "caddy_1=www.zora-edu.ae"
+      - "caddy_1.redir=https://zora-edu.ae{uri}"
 
 networks:
   app-network:

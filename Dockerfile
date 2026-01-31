@@ -2,11 +2,13 @@ FROM node:20-alpine AS builder
 
 ARG VITE_API_URL=https://zora-edu.ae/api
 WORKDIR /app
+
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci
 COPY . .
-RUN echo "VITE_API_URL=${VITE_API_URL}" > .env
-RUN npm run build
+
+RUN echo "VITE_API_URL=${VITE_API_URL}" > .env && \
+    npm run build
 
 FROM caddy:2-alpine
 
