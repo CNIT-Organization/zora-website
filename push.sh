@@ -1,0 +1,1 @@
+git checkout -b deploy-patch-$(date +%s) && git add . && git commit -m "Deploying changes via CLI" --allow-empty && git push -u origin HEAD && gh pr create --title "Quick Deployment" --body "Automated deployment via CLI" && gh pr merge --admin --merge --delete-branch
