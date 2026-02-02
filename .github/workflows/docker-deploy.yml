@@ -1,0 +1,103 @@
+name: Docker Compose Deployment
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "docker-deployment"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Create .env file
+        run: |
+          cat > .env << EOF
+          # Docker Compose Configuration
+          CADDY_PORT=8080
+          
+          # Frontend Configuration
+          FRONTEND_PORT=3000
+          VITE_API_URL=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/api
+          
+          # Backend Configuration  
+          BACKEND_PORT=8000
+          NODE_ENV=production
+          
+          # SMTP Configuration
+          SMTP_HOST=${{ secrets.SMTP_HOST }}
+          SMTP_PORT=${{ secrets.SMTP_PORT }}
+          SMTP_SECURE=false
+          SMTP_USER=${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM_EMAIL=${{ secrets.SMTP_FROM_EMAIL }}
+          SMTP_FROM_NAME=Zora Website Contact Form
+          
+          # Email Recipients
+          EMAIL_INFO=${{ secrets.EMAIL_INFO }}
+          EMAIL_SALES=${{ secrets.EMAIL_SALES }}
+          EMAIL_SUPPORT=${{ secrets.EMAIL_SUPPORT }}
+          EMAIL_ADMIN=${{ secrets.EMAIL_ADMIN }}
+          
+          # Rate Limiting
+          RATE_LIMIT_WINDOW_MS=900000
+          RATE_LIMIT_MAX_REQUESTS=10
+          EOF
+
+      - name: Build Docker images
+        run: docker-compose build --no-cache
+
+      - name: Start services
+        run: docker-compose up -d
+
+      - name: Wait for services to be healthy
+        run: |
+          echo "Waiting for backend to be healthy..."
+          timeout 120 sh -c 'until docker exec zora-backend wget --quiet --tries=1 --spider http://localhost:8000/api/health; do sleep 2; done'
+          echo "Backend is healthy!"
+          
+          echo "Waiting for frontend to be healthy..."
+          timeout 120 sh -c 'until docker exec zora-frontend wget --quiet --tries=1 --spider http://localhost:3000; do sleep 2; done'
+          echo "Frontend is healthy!"
+
+      - name: Export frontend static files
+        run: |
+          mkdir -p dist
+          docker cp zora-frontend:/srv/. dist/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      - name: Cleanup
+        if: always()
+        run: docker-compose down -v
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
