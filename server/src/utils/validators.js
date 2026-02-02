@@ -41,27 +41,31 @@ export const b2bFormSchema = Joi.object({
   name: Joi.string().min(2).max(100).trim().required().messages({
     'string.min': 'Name must be at least 2 characters long',
     'string.max': 'Name must not exceed 100 characters',
+    'string.empty': 'Name is required',
     'any.required': 'Name is required',
   }),
   email: Joi.string().email().max(254).trim().required().messages({
     'string.email': 'Please provide a valid email address',
     'string.max': 'Email must not exceed 254 characters',
+    'string.empty': 'Email is required',
     'any.required': 'Email is required',
   }),
   company: Joi.string().min(2).max(200).trim().required().messages({
-    'string.min': 'Company name must be at least 2 characters long',
-    'string.max': 'Company name must not exceed 200 characters',
-    'any.required': 'Company name is required',
+    'string.min': 'Institution name must be at least 2 characters long',
+    'string.max': 'Institution name must not exceed 200 characters',
+    'string.empty': 'Institution name is required',
+    'any.required': 'Institution name is required',
   }),
-  phone: Joi.string().min(8).max(20).trim().allow('').optional().messages({
-    'string.min': 'Phone number must be at least 8 characters long',
-    'string.max': 'Phone number must not exceed 20 characters',
+  phone: Joi.string().pattern(/^[+]?[\d\s()-]{8,20}$/).trim().required().messages({
+    'string.pattern.base': 'Please provide a valid phone number (at least 8 digits)',
+    'string.empty': 'Phone number is required',
+    'any.required': 'Phone number is required',
   }),
-  role: Joi.string().min(2).max(100).trim().allow('').optional().messages({
-    'string.min': 'Role must be at least 2 characters long',
-    'string.max': 'Role must not exceed 100 characters',
+  institutionType: Joi.string().valid('school', 'university', 'training_center', 'other').allow('').optional(),
+  estimatedStudents: Joi.number().integer().min(1).allow('', null).optional().messages({
+    'number.base': 'Please provide a valid number of students',
+    'number.min': 'Number of students must be at least 1',
   }),
-  companySize: Joi.string().valid('1-50', '51-200', '201-1000', '1000+').allow('').optional(),
   requirements: Joi.string().max(2000).trim().allow('').optional().messages({
     'string.max': 'Requirements must not exceed 2000 characters',
   }),

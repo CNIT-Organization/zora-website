@@ -38,6 +38,7 @@ export function B2BSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState<Partial<B2BInquiry>>({
     institutionName: '',
     institutionType: 'school',
@@ -49,9 +50,59 @@ export function B2BSection() {
     preferredContactMethod: 'email',
   });
 
+  const validateField = (name: string, value: any): string => {
+    switch (name) {
+      case 'institutionName':
+        if (!value || value.length < 2) return 'Institution name must be at least 2 characters long';
+        if (value.length > 200) return 'Institution name must not exceed 200 characters';
+        break;
+      case 'contactName':
+        if (!value || value.length < 2) return 'Name must be at least 2 characters long';
+        if (value.length > 100) return 'Name must not exceed 100 characters';
+        break;
+      case 'email':
+        if (!value) return 'Email is required';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Please provide a valid email address';
+        break;
+      case 'phone':
+        if (!value) return 'Phone number is required';
+        // Remove spaces, dashes, parentheses for validation
+        const cleanPhone = value.replace(/[\s()-]/g, '');
+        if (cleanPhone.length < 8) return 'Please provide a valid phone number (at least 8 digits)';
+        if (cleanPhone.length > 20) return 'Phone number is too long';
+        break;
+      case 'estimatedStudents':
+        if (value && value < 1) return 'Number of students must be at least 1';
+        break;
+      case 'requirements':
+        if (value && value.length > 2000) return 'Requirements must not exceed 2000 characters';
+        break;
+    }
+    return '';
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate all required fields
+    const newErrors: Record<string, string> = {};
+    newErrors.institutionName = validateField('institutionName', formData.institutionName);
+    newErrors.contactName = validateField('contactName', formData.contactName);
+    newErrors.email = validateField('email', formData.email);
+    newErrors.phone = validateField('phone', formData.phone);
+    
+    // Remove empty errors
+    Object.keys(newErrors).forEach(key => {
+      if (!newErrors[key]) delete newErrors[key];
+    });
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    
     setIsSubmitting(true);
+    setErrors({});
 
     try {
       const response = await fetch('/api/b2b', {
@@ -64,9 +115,9 @@ export function B2BSection() {
           email: formData.email,
           company: formData.institutionName,
           phone: formData.phone,
-          role: '',
-          companySize: formData.estimatedStudents ? `${formData.estimatedStudents}+` : '',
-          requirements: formData.requirements,
+          institutionType: formData.institutionType,
+          estimatedStudents: formData.estimatedStudents || null,
+          requirements: formData.requirements || '',
         }),
       });
 
@@ -74,8 +125,27 @@ export function B2BSection() {
 
       if (data.success) {
         setIsSubmitted(true);
+        setFormData({
+          institutionName: '',
+          institutionType: 'school',
+          contactName: '',
+          email: '',
+          phone: '',
+          estimatedStudents: 0,
+          requirements: '',
+          preferredContactMethod: 'email',
+        });
       } else {
-        alert(data.message || 'Failed to submit request. Please try again.');
+        // Handle backend validation errors
+        if (data.errors) {
+          const backendErrors: Record<string, string> = {};
+          data.errors.forEach((err: any) => {
+            backendErrors[err.field] = err.message;
+          });
+          setErrors(backendErrors);
+        } else {
+          alert(data.message || 'Failed to submit request. Please try again.');
+        }
       }
     } catch (error) {
       alert('Failed to submit request. Please try again later.');
@@ -89,6 +159,23 @@ export function B2BSection() {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    const error = validateField(name, value);
+    if (error) {
+      setErrors(prev => ({ ...prev, [name]: error }));
+    }
   };
 
   return (
@@ -237,16 +324,20 @@ export function B2BSection() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="institutionName">Institution Name</Label>
+                      <Label htmlFor="institutionName">Institution Name *</Label>
                       <Input
                         id="institutionName"
                         name="institutionName"
                         placeholder="Dubai Academy"
                         value={formData.institutionName}
                         onChange={handleInputChange}
+                        onBlur={handleBlur}
                         required
-                        className="mt-2 bg-white/5 border-white/10"
+                        className={`mt-2 bg-white/5 border-white/10 ${errors.company ? 'border-red-500' : ''}`}
                       />
+                      {errors.company && (
+                        <p className="text-red-500 text-sm mt-1">{errors.company}</p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="institutionType">Type</Label>
@@ -274,19 +365,23 @@ export function B2BSection() {
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="contactName">Your Name</Label>
+                      <Label htmlFor="contactName">Your Name *</Label>
                       <Input
                         id="contactName"
                         name="contactName"
                         placeholder="John Doe"
                         value={formData.contactName}
                         onChange={handleInputChange}
+                        onBlur={handleBlur}
                         required
-                        className="mt-2 bg-white/5 border-white/10"
+                        className={`mt-2 bg-white/5 border-white/10 ${errors.name ? 'border-red-500' : ''}`}
                       />
+                      {errors.name && (
+                        <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                      )}
                     </div>
                     <div>
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email">Email *</Label>
                       <Input
                         id="email"
                         name="email"
@@ -294,15 +389,19 @@ export function B2BSection() {
                         placeholder="john@school.ae"
                         value={formData.email}
                         onChange={handleInputChange}
+                        onBlur={handleBlur}
                         required
-                        className="mt-2 bg-white/5 border-white/10"
+                        className={`mt-2 bg-white/5 border-white/10 ${errors.email ? 'border-red-500' : ''}`}
                       />
+                      {errors.email && (
+                        <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                      )}
                     </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="phone">Phone</Label>
+                      <Label htmlFor="phone">Phone *</Label>
                       <Input
                         id="phone"
                         name="phone"
@@ -310,9 +409,13 @@ export function B2BSection() {
                         placeholder="+971 XX XXX XXXX"
                         value={formData.phone}
                         onChange={handleInputChange}
+                        onBlur={handleBlur}
                         required
-                        className="mt-2 bg-white/5 border-white/10"
+                        className={`mt-2 bg-white/5 border-white/10 ${errors.phone ? 'border-red-500' : ''}`}
                       />
+                      {errors.phone && (
+                        <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="estimatedStudents">Estimated Students</Label>
@@ -323,9 +426,12 @@ export function B2BSection() {
                         placeholder="500"
                         value={formData.estimatedStudents || ''}
                         onChange={handleInputChange}
-                        required
-                        className="mt-2 bg-white/5 border-white/10"
+                        onBlur={handleBlur}
+                        className={`mt-2 bg-white/5 border-white/10 ${errors.estimatedStudents ? 'border-red-500' : ''}`}
                       />
+                      {errors.estimatedStudents && (
+                        <p className="text-red-500 text-sm mt-1">{errors.estimatedStudents}</p>
+                      )}
                     </div>
                   </div>
 
@@ -337,9 +443,13 @@ export function B2BSection() {
                       placeholder="Tell us about your needs..."
                       value={formData.requirements}
                       onChange={handleInputChange}
+                      onBlur={handleBlur}
                       rows={4}
-                      className="mt-2 bg-white/5 border-white/10"
+                      className={`mt-2 bg-white/5 border-white/10 ${errors.requirements ? 'border-red-500' : ''}`}
                     />
+                    {errors.requirements && (
+                      <p className="text-red-500 text-sm mt-1">{errors.requirements}</p>
+                    )}
                   </div>
 
                   <Button
