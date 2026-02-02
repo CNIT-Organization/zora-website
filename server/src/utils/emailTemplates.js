@@ -97,8 +97,8 @@ export const createB2BEmailHTML = (data) => {
   const sanitizedEmail = escapeHtml(data.email);
   const sanitizedCompany = escapeHtml(data.company);
   const sanitizedPhone = data.phone ? escapeHtml(data.phone) : '';
-  const sanitizedRole = data.role ? escapeHtml(data.role) : '';
-  const sanitizedCompanySize = data.companySize ? escapeHtml(data.companySize) : '';
+  const sanitizedInstitutionType = data.institutionType ? escapeHtml(data.institutionType) : '';
+  const sanitizedEstimatedStudents = data.estimatedStudents ? escapeHtml(data.estimatedStudents.toString()) : '';
   const sanitizedRequirements = data.requirements
     ? escapeHtml(data.requirements).replace(/\n/g, '<br>')
     : '';
@@ -157,7 +157,7 @@ export const createB2BEmailHTML = (data) => {
     <body>
       <div class="container">
         <div class="header">
-          <h2>🎯 New B2B Request</h2>
+          <h2>🎯 New B2B Demo Request</h2>
         </div>
         
         <div class="field">
@@ -171,7 +171,7 @@ export const createB2BEmailHTML = (data) => {
         </div>
         
         <div class="field">
-          <div class="label">Company:</div>
+          <div class="label">Institution Name:</div>
           <div class="value">${sanitizedCompany}</div>
         </div>
         
@@ -182,30 +182,30 @@ export const createB2BEmailHTML = (data) => {
         </div>
         ` : ''}
         
-        ${sanitizedRole ? `
+        ${sanitizedInstitutionType ? `
         <div class="field">
-          <div class="label">Role:</div>
-          <div class="value">${sanitizedRole}</div>
+          <div class="label">Institution Type:</div>
+          <div class="value">${sanitizedInstitutionType}</div>
         </div>
         ` : ''}
         
-        ${sanitizedCompanySize ? `
+        ${sanitizedEstimatedStudents ? `
         <div class="field">
-          <div class="label">Company Size:</div>
-          <div class="value">${sanitizedCompanySize} employees</div>
+          <div class="label">Estimated Students:</div>
+          <div class="value">${sanitizedEstimatedStudents} students</div>
         </div>
         ` : ''}
         
         ${sanitizedRequirements ? `
         <div class="field">
-          <div class="label">Requirements:</div>
+          <div class="label">Requirements / Questions:</div>
           <div class="highlight">${sanitizedRequirements}</div>
         </div>
         ` : ''}
         
         <div class="footer">
-          <p>This B2B request was submitted from the Zora website.</p>
-          <p><strong>Action Required:</strong> Contact ${sanitizedName} within 24 hours.</p>
+          <p>This is an automated message from the Zora B2B contact form.</p>
+          <p><strong>Action Required:</strong> Please respond within 24 hours.</p>
         </div>
       </div>
     </body>

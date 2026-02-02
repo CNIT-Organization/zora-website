@@ -12,6 +12,7 @@ import { Footer } from '@/components/Footer';
 const Contact = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,9 +25,50 @@ const Contact = () => {
     setIsWizardOpen(true);
   };
 
+  const validateField = (name: string, value: string): string => {
+    switch (name) {
+      case 'name':
+        if (!value || value.length < 2) return 'Name must be at least 2 characters long';
+        if (value.length > 100) return 'Name must not exceed 100 characters';
+        break;
+      case 'email':
+        if (!value) return 'Email is required';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Please provide a valid email address';
+        break;
+      case 'subject':
+        if (!value) return 'Subject is required';
+        if (value.length > 200) return 'Subject must not exceed 200 characters';
+        break;
+      case 'message':
+        if (!value || value.length < 10) return 'Message must be at least 10 characters long';
+        if (value.length > 5000) return 'Message must not exceed 5000 characters';
+        break;
+    }
+    return '';
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate all fields
+    const newErrors: Record<string, string> = {};
+    newErrors.name = validateField('name', formData.name);
+    newErrors.email = validateField('email', formData.email);
+    newErrors.subject = validateField('subject', formData.subject);
+    newErrors.message = validateField('message', formData.message);
+    
+    // Remove empty errors
+    Object.keys(newErrors).forEach(key => {
+      if (!newErrors[key]) delete newErrors[key];
+    });
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    
     setIsSubmitting(true);
+    setErrors({});
 
     try {
       const response = await fetch('/api/contact', {
@@ -43,7 +85,16 @@ const Contact = () => {
         alert('Thank you! Your message has been sent successfully. We will get back to you within 24 hours.');
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
-        alert(data.message || 'Failed to send message. Please try again later.');
+        // Handle backend validation errors
+        if (data.errors) {
+          const backendErrors: Record<string, string> = {};
+          data.errors.forEach((err: any) => {
+            backendErrors[err.field] = err.message;
+          });
+          setErrors(backendErrors);
+        } else {
+          alert(data.message || 'Failed to send message. Please try again later.');
+        }
       }
     } catch (error) {
       alert('Failed to send message. Please try again later.');
@@ -53,10 +104,28 @@ const Contact = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: value
     }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    const error = validateField(name, value);
+    if (error) {
+      setErrors(prev => ({ ...prev, [name]: error }));
+    }
   };
 
   return (
@@ -124,21 +193,25 @@ const Contact = () => {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
-                      Your Name
+                      Your Name *
                     </label>
                     <Input
                       id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="John Doe"
                       required
-                      className="bg-white/5 border-white/10"
+                      className={`bg-white/5 border-white/10 ${errors.name ? 'border-red-500' : ''}`}
                     />
+                    {errors.name && (
+                      <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium mb-2">
-                      Email Address
+                      Email Address *
                     </label>
                     <Input
                       id="email"
@@ -146,50 +219,66 @@ const Contact = () => {
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="john@example.com"
                       required
-                      className="bg-white/5 border-white/10"
+                      className={`bg-white/5 border-white/10 ${errors.email ? 'border-red-500' : ''}`}
                     />
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                    )}
                   </div>
                 </div>
 
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                    Subject
+                    Subject *
                   </label>
                   <select
                     id="subject"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     required
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:border-primary"
+                    className={`w-full px-4 py-3 rounded-xl bg-white/5 border ${errors.subject ? 'border-red-500' : 'border-white/10'} text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all`}
+                    style={{ color: 'inherit' }}
                   >
-                    <option value="">Select a subject</option>
-                    <option value="General Inquiry">General Inquiry</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Support">Technical Support</option>
-                    <option value="Partnership">Partnership Opportunities</option>
-                    <option value="Schools">For Schools</option>
-                    <option value="Feedback">Feedback</option>
-                    <option value="Other">Other</option>
+                    <option value="" className="bg-background text-foreground">Select a subject</option>
+                    <option value="General Inquiry" className="bg-background text-foreground">General Inquiry</option>
+                    <option value="Sales" className="bg-background text-foreground">Sales</option>
+                    <option value="Support" className="bg-background text-foreground">Technical Support</option>
+                    <option value="Partnership" className="bg-background text-foreground">Partnership Opportunities</option>
+                    <option value="Schools" className="bg-background text-foreground">For Schools</option>
+                    <option value="Feedback" className="bg-background text-foreground">Feedback</option>
+                    <option value="Other" className="bg-background text-foreground">Other</option>
                   </select>
+                  {errors.subject && (
+                    <p className="text-red-500 text-sm mt-1">{errors.subject}</p>
+                  )}
                 </div>
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Message
+                    Message *
                   </label>
                   <Textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell us how we can help you..."
+                    onBlur={handleBlur}
+                    placeholder="Tell us how we can help you... (minimum 10 characters)"
                     rows={5}
                     required
-                    className="bg-white/5 border-white/10 resize-none"
+                    className={`bg-white/5 border-white/10 resize-none ${errors.message ? 'border-red-500' : ''}`}
                   />
+                  {errors.message && (
+                    <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+                  )}
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {formData.message.length}/5000 characters
+                  </p>
                 </div>
 
                 <Button

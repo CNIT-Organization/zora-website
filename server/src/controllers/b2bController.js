@@ -14,15 +14,15 @@ export const handleB2BForm = async (req, res) => {
       });
     }
 
-    const { name, email, company, phone, role, companySize, requirements } = validation.value;
+    const { name, email, company, phone, institutionType, estimatedStudents, requirements } = validation.value;
 
     const htmlContent = createB2BEmailHTML({
       name,
       email,
       company,
       phone,
-      role,
-      companySize,
+      institutionType,
+      estimatedStudents,
       requirements,
     });
 
