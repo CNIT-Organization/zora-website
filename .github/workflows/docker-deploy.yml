@@ -59,10 +59,10 @@ jobs:
           EOF
 
       - name: Build Docker images
-        run: docker-compose build --no-cache
+        run: docker compose build --no-cache
 
       - name: Start services
-        run: docker-compose up -d
+        run: docker compose up -d
 
       - name: Wait for services to be healthy
         run: |
@@ -89,7 +89,7 @@ jobs:
 
       - name: Cleanup
         if: always()
-        run: docker-compose down -v
+        run: docker compose down -v
 
   deploy:
     environment:
