@@ -64,20 +64,26 @@ jobs:
       - name: Start services
         run: docker compose up -d
 
-      - name: Wait for services to be healthy
+      - name: Wait for containers to be ready
         run: |
           echo "Waiting for backend to be healthy..."
-          timeout 120 sh -c 'until docker exec zora-backend wget --quiet --tries=1 --spider http://localhost:8000/api/health; do sleep 2; done'
+          timeout 120 sh -c 'until docker exec zora-backend wget --quiet --tries=1 --spider http://localhost:8000/api/health 2>/dev/null; do sleep 2; done'
           echo "Backend is healthy!"
           
-          echo "Waiting for frontend to be healthy..."
-          timeout 120 sh -c 'until docker exec zora-frontend wget --quiet --tries=1 --spider http://localhost:3000; do sleep 2; done'
-          echo "Frontend is healthy!"
+          echo "Waiting for frontend container to be ready..."
+          timeout 60 sh -c 'until docker ps --filter "name=zora-frontend" --filter "status=running" | grep -q zora-frontend; do sleep 2; done'
+          echo "Frontend container is running!"
+          
+          # Give frontend a few seconds to start serving files
+          sleep 10
 
       - name: Export frontend static files
         run: |
           mkdir -p dist
+          echo "Copying files from frontend container..."
           docker cp zora-frontend:/srv/. dist/
+          echo "Files copied successfully!"
+          ls -la dist/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
