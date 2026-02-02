@@ -39,7 +39,7 @@ export interface SubscriptionRequest {
   planId: string;
   userId: string;
   paymentMethodId: string;
-  currency: 'AED';
+  currency: "AED";
 }
 
 export interface SubscriptionResponse {
@@ -70,7 +70,11 @@ export interface RecommendationResult {
 }
 
 // ============ B2B Types ============
-export type InstitutionType = 'school' | 'university' | 'training_center' | 'other';
+export type InstitutionType =
+  | "school"
+  | "university"
+  | "training_center"
+  | "other";
 
 export interface B2BInquiry {
   institutionName: string;
@@ -80,7 +84,7 @@ export interface B2BInquiry {
   phone: string;
   estimatedStudents: number;
   requirements: string;
-  preferredContactMethod: 'email' | 'phone' | 'whatsapp';
+  preferredContactMethod: "email" | "phone" | "whatsapp";
 }
 
 export interface B2BInquiryResponse {
@@ -96,7 +100,7 @@ export interface Feature {
   title: string;
   description: string;
   icon: string;
-  status: 'available' | 'coming_soon';
+  status: "available" | "coming_soon";
   expectedDate?: string;
 }
 
@@ -104,7 +108,7 @@ export interface RoadmapItem {
   id: string;
   title: string;
   description: string;
-  status: 'available' | 'coming_soon';
+  status: "available" | "coming_soon";
   features: string[];
   image?: string;
 }
@@ -134,8 +138,8 @@ export interface PaymentIntent {
   id: string;
   clientSecret: string;
   amount: number;
-  currency: 'AED';
-  status: 'pending' | 'processing' | 'succeeded' | 'failed';
+  currency: "AED";
+  status: "pending" | "processing" | "succeeded" | "failed";
 }
 
 export interface CheckoutSession {

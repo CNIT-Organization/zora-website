@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Play, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import Hero3DScene from './Hero3DScene';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Play, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Hero3DScene from "./Hero3DScene";
 
 interface HeroSectionProps {
   onGetStarted: () => void;
@@ -63,7 +63,8 @@ export function HeroSection({ onGetStarted, onWatchDemo }: HeroSectionProps) {
             className="text-xl sm:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto"
           >
             AI-powered learning that adapts to your child's unique intelligence.
-            From virtual avatars to AR experiences — prepare for tomorrow, today.
+            From virtual avatars to AR experiences — prepare for tomorrow,
+            today.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -101,15 +102,17 @@ export function HeroSection({ onGetStarted, onWatchDemo }: HeroSectionProps) {
             className="mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto"
           >
             {[
-              { value: '50K+', label: 'Students' },
-              { value: '98%', label: 'Satisfaction' },
-              { value: '100+', label: 'Schools' },
+              { value: "50K+", label: "Students" },
+              { value: "98%", label: "Satisfaction" },
+              { value: "100+", label: "Schools" },
             ].map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-3xl sm:text-4xl font-bold gradient-text mb-1">
                   {stat.value}
                 </div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+                <div className="text-sm text-muted-foreground">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </motion.div>
@@ -124,10 +127,12 @@ export function HeroSection({ onGetStarted, onWatchDemo }: HeroSectionProps) {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
       >
         <div className="flex flex-col items-center gap-2">
-          <span className="text-xs text-muted-foreground">Scroll to explore</span>
+          <span className="text-xs text-muted-foreground">
+            Scroll to explore
+          </span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2"
           >
             <div className="w-1.5 h-3 rounded-full bg-primary" />

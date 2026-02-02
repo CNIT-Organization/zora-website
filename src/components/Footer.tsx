@@ -1,26 +1,35 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Mail, Phone, MapPin, ExternalLink, Loader2 } from 'lucide-react';
-import { env } from '@/config/env';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  Mail,
+  Phone,
+  MapPin,
+  ExternalLink,
+  Loader2,
+} from "lucide-react";
+import { env } from "@/config/env";
+import { useNavigate } from "react-router-dom";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
-  const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [subscriptionStatus, setSubscriptionStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
   const handleScroll = (href: string) => {
-    if (href.startsWith('#')) {
+    if (href.startsWith("#")) {
       const element = document.getElementById(href.slice(1));
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      } else if (window.location.pathname !== '/') {
-        navigate('/');
+        element.scrollIntoView({ behavior: "smooth" });
+      } else if (window.location.pathname !== "/") {
+        navigate("/");
         setTimeout(() => {
           const el = document.getElementById(href.slice(1));
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
+          if (el) el.scrollIntoView({ behavior: "smooth" });
         }, 100);
       }
     }
@@ -28,34 +37,62 @@ export function Footer() {
 
   const footerLinks = {
     product: [
-      { label: 'Features', href: '#features', onClick: () => handleScroll('#features') },
-      { label: 'Roadmap', href: '#roadmap', onClick: () => handleScroll('#roadmap') },
-      { label: 'Pricing', href: '#pricing', onClick: () => handleScroll('#pricing') },
-      { label: 'For Schools', href: '#b2b', onClick: () => handleScroll('#b2b') },
+      {
+        label: "Features",
+        href: "#features",
+        onClick: () => handleScroll("#features"),
+      },
+      {
+        label: "Roadmap",
+        href: "#roadmap",
+        onClick: () => handleScroll("#roadmap"),
+      },
+      {
+        label: "Pricing",
+        href: "#pricing",
+        onClick: () => handleScroll("#pricing"),
+      },
+      {
+        label: "For Schools",
+        href: "#b2b",
+        onClick: () => handleScroll("#b2b"),
+      },
     ],
     company: [
-      { label: 'About Us', href: '/about', onClick: () => navigate('/about') },
-      { label: 'Press Kit', href: '/press', onClick: () => navigate('/press') },
+      { label: "About Us", href: "/about", onClick: () => navigate("/about") },
+      { label: "Press Kit", href: "/press", onClick: () => navigate("/press") },
     ],
     support: [
-      { label: 'Contact Us', href: '/contact', onClick: () => navigate('/contact') },
-      { label: 'Privacy Policy', href: '/privacy', onClick: () => navigate('/privacy') },
-      { label: 'Terms of Service', href: '/terms', onClick: () => navigate('/terms') },
+      {
+        label: "Contact Us",
+        href: "/contact",
+        onClick: () => navigate("/contact"),
+      },
+      {
+        label: "Privacy Policy",
+        href: "/privacy",
+        onClick: () => navigate("/privacy"),
+      },
+      {
+        label: "Terms of Service",
+        href: "/terms",
+        onClick: () => navigate("/terms"),
+      },
     ],
   };
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    
+
     setIsSubscribing(true);
-    setSubscriptionStatus('idle');
+    setSubscriptionStatus("idle");
 
     try {
-      const response = await fetch('/api/newsletter', {
-        method: 'POST',
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email }),
       });
@@ -63,13 +100,13 @@ export function Footer() {
       const data = await response.json();
 
       if (data.success) {
-        setSubscriptionStatus('success');
-        setEmail('');
+        setSubscriptionStatus("success");
+        setEmail("");
       } else {
-        setSubscriptionStatus('error');
+        setSubscriptionStatus("error");
       }
     } catch (error) {
-      setSubscriptionStatus('error');
+      setSubscriptionStatus("error");
     } finally {
       setIsSubscribing(false);
     }
@@ -86,7 +123,9 @@ export function Footer() {
           <div className="lg:col-span-2">
             <a href="/" className="flex items-center gap-2 mb-6">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-zora-purple flex items-center justify-center">
-                <span className="text-xl font-bold text-primary-foreground">Z</span>
+                <span className="text-xl font-bold text-primary-foreground">
+                  Z
+                </span>
               </div>
               <span className="font-display text-2xl font-bold text-foreground">
                 Zora
@@ -193,8 +232,8 @@ export function Footer() {
                 className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary disabled:opacity-50"
                 required
               />
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={isSubscribing}
                 className="px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-colors flex items-center gap-2 disabled:opacity-50"
               >
@@ -212,11 +251,15 @@ export function Footer() {
               </button>
             </form>
           </div>
-          {subscriptionStatus === 'success' && (
-            <p className="text-green-400 text-sm mt-3">Successfully subscribed to our newsletter!</p>
+          {subscriptionStatus === "success" && (
+            <p className="text-green-400 text-sm mt-3">
+              Successfully subscribed to our newsletter!
+            </p>
           )}
-          {subscriptionStatus === 'error' && (
-            <p className="text-red-400 text-sm mt-3">Failed to subscribe. Please try again later.</p>
+          {subscriptionStatus === "error" && (
+            <p className="text-red-400 text-sm mt-3">
+              Failed to subscribe. Please try again later.
+            </p>
           )}
         </div>
 

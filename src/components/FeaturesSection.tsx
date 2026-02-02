@@ -1,44 +1,44 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Brain, Fingerprint, Sparkles, Zap } from 'lucide-react';
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { Brain, Fingerprint, Sparkles, Zap } from "lucide-react";
 
 const features = [
   {
     icon: Brain,
-    title: 'AI Customization',
-    subtitle: 'Adapts to Your Child\'s IQ',
+    title: "AI Customization",
+    subtitle: "Adapts to Your Child's IQ",
     description:
-      'Our advanced AI analyzes each student\'s learning patterns, strengths, and areas for improvement to create truly personalized educational paths.',
+      "Our advanced AI analyzes each student's learning patterns, strengths, and areas for improvement to create truly personalized educational paths.",
     highlights: [
-      'Real-time difficulty adjustment',
-      'Learning style detection',
-      'Personalized curriculum',
-      'Progress optimization',
+      "Real-time difficulty adjustment",
+      "Learning style detection",
+      "Personalized curriculum",
+      "Progress optimization",
     ],
-    gradient: 'from-primary to-zora-cyan-glow',
-    status: 'available',
+    gradient: "from-primary to-zora-cyan-glow",
+    status: "available",
   },
   {
     icon: Fingerprint,
-    title: 'Study Finger AR',
-    subtitle: 'KG-K4 Gamification',
+    title: "Study Finger AR",
+    subtitle: "KG-K4 Gamification",
     description:
-      'Revolutionary AR technology that transforms learning into an interactive adventure. Watch as your child engages with 3D educational content through hand gestures.',
+      "Revolutionary AR technology that transforms learning into an interactive adventure. Watch as your child engages with 3D educational content through hand gestures.",
     highlights: [
-      'Gesture-based learning',
-      '3D interactive models',
-      'Gamified lessons',
-      'Real-world integration',
+      "Gesture-based learning",
+      "3D interactive models",
+      "Gamified lessons",
+      "Real-world integration",
     ],
-    gradient: 'from-zora-purple to-pink-500',
-    status: 'coming_soon',
+    gradient: "from-zora-purple to-pink-500",
+    status: "coming_soon",
   },
 ];
 
 export function FeaturesSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section id="features" className="py-32 relative overflow-hidden" ref={ref}>
@@ -67,8 +67,8 @@ export function FeaturesSection() {
             <span className="gradient-text">Transforms Learning</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Experience the next generation of education with AI and AR technologies
-            designed specifically for the modern learner.
+            Experience the next generation of education with AI and AR
+            technologies designed specifically for the modern learner.
           </p>
         </motion.div>
 
@@ -85,7 +85,7 @@ export function FeaturesSection() {
               <div className="glass-card p-8 lg:p-10 h-full relative overflow-hidden transition-all duration-500 hover:border-primary/30">
                 {/* Status Badge */}
                 <div className="absolute top-6 right-6">
-                  {feature.status === 'available' ? (
+                  {feature.status === "available" ? (
                     <span className="badge-available">Available Now</span>
                   ) : (
                     <span className="badge-coming-soon">Coming Soon</span>
@@ -103,7 +103,9 @@ export function FeaturesSection() {
                 <h3 className="font-display text-2xl lg:text-3xl font-bold mb-2">
                   {feature.title}
                 </h3>
-                <p className={`text-lg font-medium mb-4 bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent`}>
+                <p
+                  className={`text-lg font-medium mb-4 bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent`}
+                >
                   {feature.subtitle}
                 </p>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
@@ -114,15 +116,21 @@ export function FeaturesSection() {
                 <ul className="space-y-3">
                   {feature.highlights.map((highlight, i) => (
                     <li key={i} className="flex items-center gap-3">
-                      <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${feature.gradient}`} />
-                      <span className="text-sm text-foreground/80">{highlight}</span>
+                      <div
+                        className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${feature.gradient}`}
+                      />
+                      <span className="text-sm text-foreground/80">
+                        {highlight}
+                      </span>
                     </li>
                   ))}
                 </ul>
 
                 {/* Hover Glow Effect */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                  <div className={`absolute -inset-px rounded-2xl bg-gradient-to-r ${feature.gradient} opacity-10 blur-xl`} />
+                  <div
+                    className={`absolute -inset-px rounded-2xl bg-gradient-to-r ${feature.gradient} opacity-10 blur-xl`}
+                  />
                 </div>
               </div>
             </motion.div>
@@ -139,20 +147,22 @@ export function FeaturesSection() {
           <div className="glass-card p-8 lg:p-12 relative overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               <div>
-                <span className="badge-available mb-4 inline-block">Available Now</span>
+                <span className="badge-available mb-4 inline-block">
+                  Available Now
+                </span>
                 <h3 className="font-display text-3xl lg:text-4xl font-bold mb-4">
                   Virtual Avatar Companions
                 </h3>
                 <p className="text-xl text-muted-foreground mb-6">
-                  AI-powered learning companions that understand your child's personality
-                  and make education an engaging adventure.
+                  AI-powered learning companions that understand your child's
+                  personality and make education an engaging adventure.
                 </p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {[
-                    { icon: Sparkles, text: 'Personalized Teaching Style' },
-                    { icon: Brain, text: 'Emotional Intelligence' },
-                    { icon: Zap, text: 'Real-time Motivation' },
-                    { icon: Fingerprint, text: 'Progress Tracking' },
+                    { icon: Sparkles, text: "Personalized Teaching Style" },
+                    { icon: Brain, text: "Emotional Intelligence" },
+                    { icon: Zap, text: "Real-time Motivation" },
+                    { icon: Fingerprint, text: "Progress Tracking" },
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">

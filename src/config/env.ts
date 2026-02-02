@@ -5,25 +5,25 @@ interface EnvConfig {
   // API Configuration
   API_BASE_URL: string;
   API_VERSION: string;
-  
+
   // Authentication
   AUTH_ENABLED: boolean;
-  AUTH_PROVIDER: 'supabase' | 'custom';
-  
+  AUTH_PROVIDER: "supabase" | "custom";
+
   // Payment
   STRIPE_PUBLISHABLE_KEY: string;
   PAYMENT_ENABLED: boolean;
-  DEFAULT_CURRENCY: 'AED';
-  
+  DEFAULT_CURRENCY: "AED";
+
   // Feature Flags
   FEATURE_WIZARD_ENABLED: boolean;
   FEATURE_B2B_ENABLED: boolean;
   FEATURE_AR_PREVIEW: boolean;
   FEATURE_HOLOGRAPHIC_PREVIEW: boolean;
-  
+
   // Analytics
   ANALYTICS_ENABLED: boolean;
-  
+
   // External Links
   CNIT_WEBSITE: string;
   SUPPORT_EMAIL: string;
@@ -33,31 +33,35 @@ interface EnvConfig {
 // Default configuration (can be overridden by .env)
 export const env: EnvConfig = {
   // API
-  API_BASE_URL: import.meta.env.VITE_API_BASE_URL || 'https://api.zora-edu.ae',
-  API_VERSION: import.meta.env.VITE_API_VERSION || 'v1',
-  
+  API_BASE_URL: import.meta.env.VITE_API_BASE_URL || "https://api.zora-edu.ae",
+  API_VERSION: import.meta.env.VITE_API_VERSION || "v1",
+
   // Auth
-  AUTH_ENABLED: import.meta.env.VITE_AUTH_ENABLED === 'true' || false,
-  AUTH_PROVIDER: (import.meta.env.VITE_AUTH_PROVIDER as 'supabase' | 'custom') || 'supabase',
-  
+  AUTH_ENABLED: import.meta.env.VITE_AUTH_ENABLED === "true" || false,
+  AUTH_PROVIDER:
+    (import.meta.env.VITE_AUTH_PROVIDER as "supabase" | "custom") || "supabase",
+
   // Payment
-  STRIPE_PUBLISHABLE_KEY: import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '',
-  PAYMENT_ENABLED: import.meta.env.VITE_PAYMENT_ENABLED === 'true' || false,
-  DEFAULT_CURRENCY: 'AED',
-  
+  STRIPE_PUBLISHABLE_KEY: import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "",
+  PAYMENT_ENABLED: import.meta.env.VITE_PAYMENT_ENABLED === "true" || false,
+  DEFAULT_CURRENCY: "AED",
+
   // Feature Flags
-  FEATURE_WIZARD_ENABLED: import.meta.env.VITE_FEATURE_WIZARD_ENABLED !== 'false',
-  FEATURE_B2B_ENABLED: import.meta.env.VITE_FEATURE_B2B_ENABLED !== 'false',
-  FEATURE_AR_PREVIEW: import.meta.env.VITE_FEATURE_AR_PREVIEW === 'true' || false,
-  FEATURE_HOLOGRAPHIC_PREVIEW: import.meta.env.VITE_FEATURE_HOLOGRAPHIC_PREVIEW === 'true' || false,
-  
+  FEATURE_WIZARD_ENABLED:
+    import.meta.env.VITE_FEATURE_WIZARD_ENABLED !== "false",
+  FEATURE_B2B_ENABLED: import.meta.env.VITE_FEATURE_B2B_ENABLED !== "false",
+  FEATURE_AR_PREVIEW:
+    import.meta.env.VITE_FEATURE_AR_PREVIEW === "true" || false,
+  FEATURE_HOLOGRAPHIC_PREVIEW:
+    import.meta.env.VITE_FEATURE_HOLOGRAPHIC_PREVIEW === "true" || false,
+
   // Analytics
-  ANALYTICS_ENABLED: import.meta.env.VITE_ANALYTICS_ENABLED === 'true' || false,
-  
+  ANALYTICS_ENABLED: import.meta.env.VITE_ANALYTICS_ENABLED === "true" || false,
+
   // External Links
-  CNIT_WEBSITE: 'https://cnit-solutions.com/',
-  SUPPORT_EMAIL: 'support@zora-edu.ae',
-  WHATSAPP_NUMBER: '+971-XX-XXX-XXXX',
+  CNIT_WEBSITE: "https://cnit-solutions.com/",
+  SUPPORT_EMAIL: "support@zora-edu.ae",
+  WHATSAPP_NUMBER: "+971-XX-XXX-XXXX",
 };
 
 // API Endpoints

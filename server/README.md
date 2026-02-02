@@ -14,21 +14,26 @@ Backend API for Zora Education website built with Node.js and Express.
 ## API Endpoints
 
 ### Health Check
+
 ```
 GET /api/health
 ```
 
 ### Configuration
+
 ```
 GET /api/config         # Get all configuration
 GET /api/config/:type   # Get specific config (pricing, about, contact, features, testimonials)
 ```
 
 ### Contact Form
+
 ```
 POST /api/contact
 ```
+
 Request body:
+
 ```json
 {
   "name": "John Doe",
@@ -39,10 +44,13 @@ Request body:
 ```
 
 ### B2B Inquiry
+
 ```
 POST /api/b2b
 ```
+
 Request body:
+
 ```json
 {
   "name": "John Doe",
@@ -58,6 +66,7 @@ Request body:
 ## Configuration Files
 
 All dynamic content is stored in `server/data/`:
+
 - `pricing.json` - Pricing plans and tiers
 - `about.json` - Company information and values
 - `contact.json` - Contact details and form configuration
@@ -75,6 +84,7 @@ npm run dev
 ## Docker
 
 Build and run:
+
 ```bash
 docker-compose up -d
 ```
@@ -82,6 +92,7 @@ docker-compose up -d
 ## Environment Variables
 
 See `.env.example` for all required environment variables. Key variables:
+
 - `PORT` - Server port (default: 3001)
 - `SMTP_*` - Email configuration
 - `EMAIL_*` - Recipient email addresses

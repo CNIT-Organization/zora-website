@@ -3,7 +3,12 @@ import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -15,8 +20,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        display: ['Space Grotesk', 'sans-serif'],
+        sans: ["Inter", "sans-serif"],
+        display: ["Space Grotesk", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -102,7 +107,7 @@ export default {
           from: { transform: "translateX(100%)" },
           to: { transform: "translateX(0)" },
         },
-        "float": {
+        float: {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-20px)" },
         },
@@ -122,15 +127,17 @@ export default {
         "fade-in-up": "fade-in-up 0.8s ease-out forwards",
         "scale-in": "scale-in 0.4s ease-out forwards",
         "slide-in-right": "slide-in-right 0.3s ease-out",
-        "float": "float 6s ease-in-out infinite",
+        float: "float 6s ease-in-out infinite",
         "float-slow": "float 8s ease-in-out infinite",
         "glow-pulse": "glow-pulse 2s ease-in-out infinite",
         "rotate-slow": "rotate-slow 20s linear infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-hero": "linear-gradient(135deg, hsl(222 47% 5%) 0%, hsl(222 47% 12%) 50%, hsl(210 80% 15%) 100%)",
-        "gradient-card": "linear-gradient(145deg, hsla(222, 47%, 12%, 0.8) 0%, hsla(222, 47%, 8%, 0.9) 100%)",
+        "gradient-hero":
+          "linear-gradient(135deg, hsl(222 47% 5%) 0%, hsl(222 47% 12%) 50%, hsl(210 80% 15%) 100%)",
+        "gradient-card":
+          "linear-gradient(145deg, hsla(222, 47%, 12%, 0.8) 0%, hsla(222, 47%, 8%, 0.9) 100%)",
       },
     },
   },

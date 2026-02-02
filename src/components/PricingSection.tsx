@@ -1,35 +1,42 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Check, Sparkles, Crown, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { pricingPlans } from '@/data/mockData';
-import type { PricingPlan, SubscriptionDuration, StudentQuota } from '@/types';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { Check, Sparkles, Crown, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { pricingPlans } from "@/data/mockData";
+import type { PricingPlan, SubscriptionDuration, StudentQuota } from "@/types";
 
 interface PricingSectionProps {
   onSelectPlan: (plan: PricingPlan) => void;
   onOpenWizard: () => void;
 }
 
-export function PricingSection({ onSelectPlan, onOpenWizard }: PricingSectionProps) {
+export function PricingSection({
+  onSelectPlan,
+  onOpenWizard,
+}: PricingSectionProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const [selectedDuration, setSelectedDuration] = useState<SubscriptionDuration>(6);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [selectedDuration, setSelectedDuration] =
+    useState<SubscriptionDuration>(6);
   const [selectedQuota, setSelectedQuota] = useState<StudentQuota>(3);
 
   const filteredPlans = pricingPlans.filter(
     (plan) =>
-      plan.durationMonths === selectedDuration && plan.studentQuota === selectedQuota
+      plan.durationMonths === selectedDuration &&
+      plan.studentQuota === selectedQuota,
   );
 
   // Get all plans for selected quota to show duration options
-  const plansForQuota = pricingPlans.filter((plan) => plan.studentQuota === selectedQuota);
+  const plansForQuota = pricingPlans.filter(
+    (plan) => plan.studentQuota === selectedQuota,
+  );
 
   const durations: { value: SubscriptionDuration; label: string }[] = [
-    { value: 3, label: '3 Months' },
-    { value: 6, label: '6 Months' },
-    { value: 12, label: '1 Year' },
+    { value: 3, label: "3 Months" },
+    { value: 6, label: "6 Months" },
+    { value: 12, label: "1 Year" },
   ];
 
   return (
@@ -49,7 +56,9 @@ export function PricingSection({ onSelectPlan, onOpenWizard }: PricingSectionPro
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6">
             <Crown className="w-4 h-4 text-accent" />
-            <span className="text-sm font-medium text-accent">Simple Pricing</span>
+            <span className="text-sm font-medium text-accent">
+              Simple Pricing
+            </span>
           </div>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
             Invest in Your Child's
@@ -57,8 +66,8 @@ export function PricingSection({ onSelectPlan, onOpenWizard }: PricingSectionPro
             <span className="gradient-text">Future Today</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            Flexible plans designed for every family. All plans include full access to
-            our AI-powered learning platform.
+            Flexible plans designed for every family. All plans include full
+            access to our AI-powered learning platform.
           </p>
 
           {/* Wizard CTA */}
@@ -85,8 +94,8 @@ export function PricingSection({ onSelectPlan, onOpenWizard }: PricingSectionPro
               onClick={() => setSelectedQuota(3)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
                 selectedQuota === 3
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground'
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               <Users className="w-4 h-4" />
@@ -96,8 +105,8 @@ export function PricingSection({ onSelectPlan, onOpenWizard }: PricingSectionPro
               onClick={() => setSelectedQuota(6)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
                 selectedQuota === 6
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground'
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               <Users className="w-4 h-4" />
@@ -113,8 +122,8 @@ export function PricingSection({ onSelectPlan, onOpenWizard }: PricingSectionPro
                 onClick={() => setSelectedDuration(d.value)}
                 className={`px-4 py-2 rounded-lg transition-all ${
                   selectedDuration === d.value
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-muted-foreground hover:text-foreground'
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {d.label}
@@ -135,7 +144,7 @@ export function PricingSection({ onSelectPlan, onOpenWizard }: PricingSectionPro
             >
               <div
                 className={`glass-card p-8 h-full relative overflow-hidden ${
-                  plan.isPopular ? 'border-primary/50' : ''
+                  plan.isPopular ? "border-primary/50" : ""
                 }`}
               >
                 {/* Popular Badge */}
@@ -152,8 +161,12 @@ export function PricingSection({ onSelectPlan, onOpenWizard }: PricingSectionPro
                 )}
 
                 <div className="pt-4">
-                  <h3 className="font-display text-2xl font-bold mb-2">{plan.name}</h3>
-                  <p className="text-muted-foreground text-sm mb-6">{plan.description}</p>
+                  <h3 className="font-display text-2xl font-bold mb-2">
+                    {plan.name}
+                  </h3>
+                  <p className="text-muted-foreground text-sm mb-6">
+                    {plan.description}
+                  </p>
 
                   {/* Price */}
                   <div className="mb-6">
@@ -188,8 +201,8 @@ export function PricingSection({ onSelectPlan, onOpenWizard }: PricingSectionPro
                     onClick={() => onSelectPlan(plan)}
                     className={`w-full font-semibold ${
                       plan.isPopular
-                        ? 'bg-primary hover:bg-primary/90 text-primary-foreground glow-cyan'
-                        : 'bg-white/10 hover:bg-white/20 text-foreground'
+                        ? "bg-primary hover:bg-primary/90 text-primary-foreground glow-cyan"
+                        : "bg-white/10 hover:bg-white/20 text-foreground"
                     }`}
                     size="lg"
                   >
@@ -220,8 +233,8 @@ export function PricingSection({ onSelectPlan, onOpenWizard }: PricingSectionPro
                 }}
                 className={`p-4 rounded-xl border transition-all text-left ${
                   selectedDuration === plan.durationMonths
-                    ? 'border-primary bg-primary/10'
-                    : 'border-white/10 hover:border-white/20'
+                    ? "border-primary bg-primary/10"
+                    : "border-white/10 hover:border-white/20"
                 }`}
               >
                 <div className="flex justify-between items-start mb-2">
@@ -255,7 +268,9 @@ export function PricingSection({ onSelectPlan, onOpenWizard }: PricingSectionPro
               <Check className="w-5 h-5 text-green-400" />
             </div>
             <span className="text-muted-foreground">
-              <span className="font-semibold text-foreground">14-day money-back guarantee.</span>{' '}
+              <span className="font-semibold text-foreground">
+                14-day money-back guarantee.
+              </span>{" "}
               No questions asked.
             </span>
           </div>

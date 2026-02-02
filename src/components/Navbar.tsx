@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { env } from '@/config/env';
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { env } from "@/config/env";
 
 interface NavbarProps {
   onGetStarted: () => void;
 }
 
 const navLinks = [
-  { label: 'Features', href: '#features' },
-  { label: 'Roadmap', href: '#roadmap' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'For Schools', href: '#b2b' },
-  { label: 'Reviews', href: '#testimonials' },
+  { label: "Features", href: "#features" },
+  { label: "Roadmap", href: "#roadmap" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "For Schools", href: "#b2b" },
+  { label: "Reviews", href: "#testimonials" },
 ];
 
 export function Navbar({ onGetStarted }: NavbarProps) {
@@ -28,20 +28,20 @@ export function Navbar({ onGetStarted }: NavbarProps) {
       setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleNavClick = (href: string) => {
-    if (href.startsWith('#')) {
+    if (href.startsWith("#")) {
       const element = document.getElementById(href.slice(1));
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      } else if (location.pathname !== '/') {
-        navigate('/');
+        element.scrollIntoView({ behavior: "smooth" });
+      } else if (location.pathname !== "/") {
+        navigate("/");
         setTimeout(() => {
           const el = document.getElementById(href.slice(1));
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
+          if (el) el.scrollIntoView({ behavior: "smooth" });
         }, 100);
       }
     }
@@ -56,8 +56,8 @@ export function Navbar({ onGetStarted }: NavbarProps) {
         transition={{ duration: 0.6 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-background/80 backdrop-blur-xl border-b border-white/10'
-            : 'bg-transparent'
+            ? "bg-background/80 backdrop-blur-xl border-b border-white/10"
+            : "bg-transparent"
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,7 +65,9 @@ export function Navbar({ onGetStarted }: NavbarProps) {
             {/* Logo */}
             <a href="/" className="flex items-center gap-2">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-zora-purple flex items-center justify-center">
-                <span className="text-xl font-bold text-primary-foreground">Z</span>
+                <span className="text-xl font-bold text-primary-foreground">
+                  Z
+                </span>
               </div>
               <span className="font-display text-2xl font-bold text-foreground">
                 Zora

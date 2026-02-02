@@ -17,7 +17,7 @@ const queryClient = new QueryClient();
 // Wrapper component to use hooks that depend on Router context
 const AppRoutes = () => {
   useScrollToTop();
-  
+
   return (
     <Routes>
       <Route path="/" element={<Index />} />
