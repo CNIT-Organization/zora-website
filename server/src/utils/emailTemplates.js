@@ -212,3 +212,83 @@ export const createB2BEmailHTML = (data) => {
     </html>
   `;
 };
+
+export const createNewsletterEmailHTML = (data) => {
+  const sanitizedEmail = escapeHtml(data.email);
+  const formattedDate = new Date(data.date).toLocaleString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+          color: #333;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+        .container {
+          padding: 20px;
+        }
+        .header {
+          background-color: #d4edda;
+          padding: 20px;
+          border-radius: 5px;
+          margin-bottom: 20px;
+          border-left: 4px solid #28a745;
+        }
+        .field {
+          margin-bottom: 15px;
+        }
+        .label {
+          font-weight: bold;
+          color: #555;
+        }
+        .value {
+          margin-top: 5px;
+          word-break: break-word;
+        }
+        .footer {
+          margin-top: 20px;
+          padding-top: 20px;
+          border-top: 1px solid #ddd;
+          font-size: 12px;
+          color: #666;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h2>📧 New Newsletter Subscription</h2>
+        </div>
+        
+        <div class="field">
+          <div class="label">Email:</div>
+          <div class="value"><a href="mailto:${sanitizedEmail}">${sanitizedEmail}</a></div>
+        </div>
+        
+        <div class="field">
+          <div class="label">Subscribed At:</div>
+          <div class="value">${formattedDate}</div>
+        </div>
+        
+        <div class="footer">
+          <p>This subscription was submitted from the Zora website newsletter form.</p>
+          <p><strong>Action:</strong> Add this email to your newsletter distribution list.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+};
