@@ -1,10 +1,10 @@
-import { escapeHtml } from './validators.js';
+import { escapeHtml } from "./validators.js";
 
 export const createContactEmailHTML = (data) => {
   const sanitizedName = escapeHtml(data.name);
   const sanitizedEmail = escapeHtml(data.email);
   const sanitizedSubject = escapeHtml(data.subject);
-  const sanitizedMessage = escapeHtml(data.message).replace(/\n/g, '<br>');
+  const sanitizedMessage = escapeHtml(data.message).replace(/\n/g, "<br>");
 
   return `
     <!DOCTYPE html>
@@ -96,12 +96,16 @@ export const createB2BEmailHTML = (data) => {
   const sanitizedName = escapeHtml(data.name);
   const sanitizedEmail = escapeHtml(data.email);
   const sanitizedCompany = escapeHtml(data.company);
-  const sanitizedPhone = data.phone ? escapeHtml(data.phone) : '';
-  const sanitizedInstitutionType = data.institutionType ? escapeHtml(data.institutionType) : '';
-  const sanitizedEstimatedStudents = data.estimatedStudents ? escapeHtml(data.estimatedStudents.toString()) : '';
+  const sanitizedPhone = data.phone ? escapeHtml(data.phone) : "";
+  const sanitizedInstitutionType = data.institutionType
+    ? escapeHtml(data.institutionType)
+    : "";
+  const sanitizedEstimatedStudents = data.estimatedStudents
+    ? escapeHtml(data.estimatedStudents.toString())
+    : "";
   const sanitizedRequirements = data.requirements
-    ? escapeHtml(data.requirements).replace(/\n/g, '<br>')
-    : '';
+    ? escapeHtml(data.requirements).replace(/\n/g, "<br>")
+    : "";
 
   return `
     <!DOCTYPE html>
@@ -175,33 +179,49 @@ export const createB2BEmailHTML = (data) => {
           <div class="value">${sanitizedCompany}</div>
         </div>
         
-        ${sanitizedPhone ? `
+        ${
+          sanitizedPhone
+            ? `
         <div class="field">
           <div class="label">Phone:</div>
           <div class="value"><a href="tel:${sanitizedPhone}">${sanitizedPhone}</a></div>
         </div>
-        ` : ''}
+        `
+            : ""
+        }
         
-        ${sanitizedInstitutionType ? `
+        ${
+          sanitizedInstitutionType
+            ? `
         <div class="field">
           <div class="label">Institution Type:</div>
           <div class="value">${sanitizedInstitutionType}</div>
         </div>
-        ` : ''}
+        `
+            : ""
+        }
         
-        ${sanitizedEstimatedStudents ? `
+        ${
+          sanitizedEstimatedStudents
+            ? `
         <div class="field">
           <div class="label">Estimated Students:</div>
           <div class="value">${sanitizedEstimatedStudents} students</div>
         </div>
-        ` : ''}
+        `
+            : ""
+        }
         
-        ${sanitizedRequirements ? `
+        ${
+          sanitizedRequirements
+            ? `
         <div class="field">
           <div class="label">Requirements / Questions:</div>
           <div class="highlight">${sanitizedRequirements}</div>
         </div>
-        ` : ''}
+        `
+            : ""
+        }
         
         <div class="footer">
           <p>This is an automated message from the Zora B2B contact form.</p>
@@ -215,13 +235,13 @@ export const createB2BEmailHTML = (data) => {
 
 export const createNewsletterEmailHTML = (data) => {
   const sanitizedEmail = escapeHtml(data.email);
-  const formattedDate = new Date(data.date).toLocaleString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
+  const formattedDate = new Date(data.date).toLocaleString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   });
 
   return `

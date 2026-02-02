@@ -1,9 +1,19 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowRight, ArrowLeft, Users, GraduationCap, Target, Clock, Sparkles, Check } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { pricingPlans } from '@/data/mockData';
-import type { WizardAnswers, PricingPlan, SubscriptionDuration } from '@/types';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  X,
+  ArrowRight,
+  ArrowLeft,
+  Users,
+  GraduationCap,
+  Target,
+  Clock,
+  Sparkles,
+  Check,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { pricingPlans } from "@/data/mockData";
+import type { WizardAnswers, PricingPlan, SubscriptionDuration } from "@/types";
 
 interface RecommendationWizardProps {
   isOpen: boolean;
@@ -14,56 +24,65 @@ interface RecommendationWizardProps {
 const steps = [
   {
     id: 1,
-    title: 'How many children will use Zora?',
+    title: "How many children will use Zora?",
     icon: Users,
-    field: 'numberOfChildren' as keyof WizardAnswers,
+    field: "numberOfChildren" as keyof WizardAnswers,
     options: [
-      { value: 1, label: '1 Child' },
-      { value: 2, label: '2 Children' },
-      { value: 3, label: '3 Children' },
-      { value: 4, label: '4+ Children' },
+      { value: 1, label: "1 Child" },
+      { value: 2, label: "2 Children" },
+      { value: 3, label: "3 Children" },
+      { value: 4, label: "4+ Children" },
     ],
   },
   {
     id: 2,
     title: "What's their grade level?",
     icon: GraduationCap,
-    field: 'gradeLevel' as keyof WizardAnswers,
+    field: "gradeLevel" as keyof WizardAnswers,
     options: [
-      { value: 'kg-k4', label: 'KG - Grade 4' },
-      { value: 'k5-k8', label: 'Grade 5 - Grade 8' },
-      { value: 'k9-k12', label: 'Grade 9 - Grade 12' },
-      { value: 'mixed', label: 'Multiple Grades' },
+      { value: "kg-k4", label: "KG - Grade 4" },
+      { value: "k5-k8", label: "Grade 5 - Grade 8" },
+      { value: "k9-k12", label: "Grade 9 - Grade 12" },
+      { value: "mixed", label: "Multiple Grades" },
     ],
   },
   {
     id: 3,
-    title: 'What are your main goals?',
+    title: "What are your main goals?",
     icon: Target,
-    field: 'learningGoals' as keyof WizardAnswers,
-    description: 'Select all that apply',
+    field: "learningGoals" as keyof WizardAnswers,
+    description: "Select all that apply",
     multiSelect: true,
     options: [
-      { value: 'academic', label: 'Academic Excellence' },
-      { value: 'engagement', label: 'More Engagement' },
-      { value: 'personalized', label: 'Personalized Learning' },
-      { value: 'future', label: 'Future-Ready Skills' },
+      { value: "academic", label: "Academic Excellence" },
+      { value: "engagement", label: "More Engagement" },
+      { value: "personalized", label: "Personalized Learning" },
+      { value: "future", label: "Future-Ready Skills" },
     ],
   },
   {
     id: 4,
-    title: 'How long do you want to commit?',
+    title: "How long do you want to commit?",
     icon: Clock,
-    field: 'preferredDuration' as keyof WizardAnswers,
+    field: "preferredDuration" as keyof WizardAnswers,
     options: [
-      { value: 3, label: '3 Months', subtitle: 'Try it out' },
-      { value: 6, label: '6 Months', subtitle: 'Best Value', recommended: true },
-      { value: 12, label: '1 Year', subtitle: 'Maximum Savings' },
+      { value: 3, label: "3 Months", subtitle: "Try it out" },
+      {
+        value: 6,
+        label: "6 Months",
+        subtitle: "Best Value",
+        recommended: true,
+      },
+      { value: 12, label: "1 Year", subtitle: "Maximum Savings" },
     ],
   },
 ];
 
-export function RecommendationWizard({ isOpen, onClose, onSelectPlan }: RecommendationWizardProps) {
+export function RecommendationWizard({
+  isOpen,
+  onClose,
+  onSelectPlan,
+}: RecommendationWizardProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Partial<WizardAnswers>>({
     numberOfChildren: undefined,
@@ -77,7 +96,7 @@ export function RecommendationWizard({ isOpen, onClose, onSelectPlan }: Recommen
     const step = steps[currentStep];
 
     // Handle multi-select differently
-    if (step.multiSelect && step.field === 'learningGoals') {
+    if (step.multiSelect && step.field === "learningGoals") {
       const goals = answers.learningGoals || [];
       const newGoals = goals.includes(value as string)
         ? goals.filter((g) => g !== value)
@@ -129,7 +148,7 @@ export function RecommendationWizard({ isOpen, onClose, onSelectPlan }: Recommen
     const matchingPlans = pricingPlans.filter(
       (plan) =>
         plan.studentQuota === (needsFamily ? 6 : 3) &&
-        plan.durationMonths === duration
+        plan.durationMonths === duration,
     );
 
     return matchingPlans[0] || pricingPlans[1]; // Default to Growth plan
@@ -169,7 +188,7 @@ export function RecommendationWizard({ isOpen, onClose, onSelectPlan }: Recommen
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden"
       >
         {/* Backdrop */}
         <div
@@ -182,13 +201,13 @@ export function RecommendationWizard({ isOpen, onClose, onSelectPlan }: Recommen
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          transition={{ type: 'spring', duration: 0.5 }}
-          className="relative w-full max-w-3xl glass-card rounded-3xl p-8 md:p-12 max-h-[90vh] overflow-y-auto shadow-2xl"
+          transition={{ type: "spring", duration: 0.5 }}
+          className="relative w-full max-w-2xl glass-card rounded-2xl p-6 md:p-8 shadow-2xl"
         >
-          {/* Close Button - Better positioned */}
+          {/* Close Button - absolute position */}
           <button
             onClick={handleClose}
-            className="absolute -top-4 -right-4 p-3 rounded-full bg-background border-2 border-white/10 hover:border-white/30 hover:bg-white/5 transition-all shadow-lg z-10"
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all z-20"
             aria-label="Close wizard"
           >
             <X className="w-5 h-5" />
@@ -196,22 +215,26 @@ export function RecommendationWizard({ isOpen, onClose, onSelectPlan }: Recommen
 
           {!showResult ? (
             <>
-              {/* Progress Bar */}
-              <div className="mb-10">
-                <div className="flex justify-between items-center mb-3">
+              {/* Progress Bar Container */}
+              {/* ADDED: mt-6 or mt-8 here pushes the content down to clear the button */}
+              <div className="mb-6 mt-8">
+                <div className="flex justify-between items-center mb-2">
                   <span className="text-sm font-medium text-muted-foreground">
                     Question {currentStep + 1} of {steps.length}
                   </span>
                   <span className="text-sm font-semibold text-primary">
-                    {Math.round(((currentStep + 1) / steps.length) * 100)}% Complete
+                    {Math.round(((currentStep + 1) / steps.length) * 100)}%
+                    Complete
                   </span>
                 </div>
-                <div className="h-2.5 bg-white/5 rounded-full overflow-hidden shadow-inner">
+                <div className="h-2 bg-white/5 rounded-full overflow-hidden">
                   <motion.div
                     className="h-full bg-gradient-to-r from-primary via-zora-purple to-pink-500"
                     initial={{ width: 0 }}
-                    animate={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
-                    transition={{ duration: 0.5, ease: 'easeOut' }}
+                    animate={{
+                      width: `${((currentStep + 1) / steps.length) * 100}%`,
+                    }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
                   />
                 </div>
               </div>
@@ -225,15 +248,15 @@ export function RecommendationWizard({ isOpen, onClose, onSelectPlan }: Recommen
                   exit={{ opacity: 0, x: -30 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="flex items-start gap-4 mb-8">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-zora-purple/20 flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <div className="flex items-start gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-zora-purple/20 flex items-center justify-center flex-shrink-0">
                       {(() => {
                         const Icon = steps[currentStep].icon;
-                        return <Icon className="w-7 h-7 text-primary" />;
+                        return <Icon className="w-6 h-6 text-primary" />;
                       })()}
                     </div>
                     <div>
-                      <h3 className="font-display text-2xl md:text-3xl font-bold mb-2">
+                      <h3 className="font-display text-xl md:text-2xl font-bold mb-1">
                         {steps[currentStep].title}
                       </h3>
                       {steps[currentStep].description && (
@@ -245,11 +268,13 @@ export function RecommendationWizard({ isOpen, onClose, onSelectPlan }: Recommen
                   </div>
 
                   {/* Options */}
-                  <div className="grid sm:grid-cols-2 gap-4 mb-10">
+                  <div className="grid sm:grid-cols-2 gap-3 mb-6">
                     {steps[currentStep].options.map((option) => {
                       const step = steps[currentStep];
                       const isSelected = step.multiSelect
-                        ? answers.learningGoals?.includes(option.value as string)
+                        ? answers.learningGoals?.includes(
+                            option.value as string,
+                          )
                         : answers[step.field] === option.value;
 
                       return (
@@ -258,10 +283,10 @@ export function RecommendationWizard({ isOpen, onClose, onSelectPlan }: Recommen
                           onClick={() => handleAnswer(option.value)}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          className={`group relative p-5 rounded-2xl border-2 text-left transition-all ${
+                          className={`group relative p-4 rounded-xl border-2 text-left transition-all ${
                             isSelected
-                              ? 'border-primary bg-primary/10 shadow-lg shadow-primary/20'
-                              : 'border-white/10 hover:border-primary/50 hover:bg-white/5'
+                              ? "border-primary bg-primary/10 shadow-lg shadow-primary/20"
+                              : "border-white/10 hover:border-primary/50 hover:bg-white/5"
                           }`}
                         >
                           {/* Checkmark for selected */}
@@ -282,7 +307,9 @@ export function RecommendationWizard({ isOpen, onClose, onSelectPlan }: Recommen
                             </div>
                           )}
 
-                          <div className="font-semibold text-lg mb-1">{option.label}</div>
+                          <div className="font-semibold mb-1">
+                            {option.label}
+                          </div>
                           {option.subtitle && (
                             <div className="text-sm text-muted-foreground">
                               {option.subtitle}
@@ -314,7 +341,9 @@ export function RecommendationWizard({ isOpen, onClose, onSelectPlan }: Recommen
                     disabled={!canProceed()}
                     className="bg-gradient-to-r from-primary to-zora-purple hover:opacity-90 text-white shadow-lg"
                   >
-                    {currentStep === steps.length - 1 ? 'See My Plan' : 'Continue'}
+                    {currentStep === steps.length - 1
+                      ? "See My Plan"
+                      : "Continue"}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 )}
@@ -327,138 +356,142 @@ export function RecommendationWizard({ isOpen, onClose, onSelectPlan }: Recommen
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <div className="text-center mb-8">
+              <div className="text-center mb-6">
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  transition={{ type: 'spring', delay: 0.3 }}
-                  className="w-24 h-24 rounded-full bg-gradient-to-br from-primary via-zora-purple to-pink-500 mx-auto mb-6 flex items-center justify-center shadow-2xl"
+                  transition={{ type: "spring", delay: 0.3 }}
+                  className="w-16 h-16 rounded-full bg-gradient-to-br from-primary via-zora-purple to-pink-500 mx-auto mb-4 flex items-center justify-center"
                 >
-                  <Sparkles className="w-12 h-12 text-white" />
+                  <Sparkles className="w-8 h-8 text-white" />
                 </motion.div>
-                <h3 className="font-display text-4xl font-bold mb-3 gradient-text">
+                <h3 className="font-display text-2xl md:text-3xl font-bold mb-2 gradient-text">
                   Perfect Match Found!
                 </h3>
-                <p className="text-muted-foreground text-lg">
-                  Based on your preferences, here's the ideal plan for your family
+                <p className="text-muted-foreground text-sm">
+                  Based on your preferences, here's the ideal plan
                 </p>
               </div>
 
               {/* Detailed Plan Card */}
               {recommendedPlan && (
-                <div className="glass-card rounded-2xl p-8 mb-8 relative overflow-hidden border-2 border-primary/30 shadow-2xl">
-                  <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-primary via-zora-purple to-pink-500" />
-                  
+                <div className="glass-card rounded-xl p-6 mb-6 relative overflow-hidden border-2 border-primary/30">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-zora-purple to-pink-500" />
+
                   {/* Plan Header */}
-                  <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h4 className="font-display text-3xl font-bold mb-2">
+                      <h4 className="font-display text-2xl font-bold mb-1">
                         {recommendedPlan.name}
                       </h4>
-                      <p className="text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         {recommendedPlan.description}
                       </p>
                     </div>
                     {recommendedPlan.discountPercentage && (
-                      <div className="px-4 py-2 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-semibold whitespace-nowrap">
+                      <div className="px-3 py-1 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-xs font-semibold whitespace-nowrap">
                         Save {recommendedPlan.discountPercentage}%
                       </div>
                     )}
                   </div>
 
                   {/* Pricing */}
-                  <div className="flex items-baseline gap-3 mb-6">
-                    <div className="text-5xl font-bold gradient-text">
+                  <div className="flex items-baseline gap-2 mb-4">
+                    <div className="text-3xl font-bold gradient-text">
                       {recommendedPlan.priceAED} AED
                     </div>
-                    <div className="text-xl text-muted-foreground">
+                    <div className="text-sm text-muted-foreground">
                       ({recommendedPlan.pricePerMonthAED} AED/month)
                     </div>
                   </div>
 
-                  {/* Plan Details */}
-                  <div className="grid gap-4 mb-6">
-                    <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
-                      <Users className="w-5 h-5 text-primary" />
-                      <div>
-                        <div className="font-semibold">Students</div>
-                        <div className="text-sm text-muted-foreground">
-                          Up to {recommendedPlan.studentQuota} children
+                  {/* Plan Details - Compact Grid */}
+                  <div className="grid grid-cols-2 gap-3 mb-4">
+                    <div className="flex items-center gap-2 p-2 rounded-lg bg-white/5">
+                      <Users className="w-4 h-4 text-primary flex-shrink-0" />
+                      <div className="min-w-0">
+                        <div className="text-sm font-semibold">Students</div>
+                        <div className="text-xs text-muted-foreground truncate">
+                          Up to {recommendedPlan.studentQuota}
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
-                      <Clock className="w-5 h-5 text-primary" />
-                      <div>
-                        <div className="font-semibold">Duration</div>
-                        <div className="text-sm text-muted-foreground">
-                          {recommendedPlan.durationMonths} months subscription
+                    <div className="flex items-center gap-2 p-2 rounded-lg bg-white/5">
+                      <Clock className="w-4 h-4 text-primary flex-shrink-0" />
+                      <div className="min-w-0">
+                        <div className="text-sm font-semibold">Duration</div>
+                        <div className="text-xs text-muted-foreground truncate">
+                          {recommendedPlan.durationMonths} months
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Features */}
-                  <div className="mb-6">
-                    <h5 className="font-semibold mb-3">What's included:</h5>
-                    <div className="grid sm:grid-cols-2 gap-3">
-                      {recommendedPlan.features.map((feature, i) => (
-                        <div key={i} className="flex items-start gap-2">
-                          <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                          <span className="text-sm">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Why This Plan */}
-                  <div className="p-4 rounded-xl bg-primary/10 border border-primary/20">
-                    <h5 className="font-semibold mb-2 flex items-center gap-2">
+                  {/* Why This Plan - Compact */}
+                  <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
+                    <h5 className="text-sm font-semibold mb-2 flex items-center gap-2">
                       <Sparkles className="w-4 h-4 text-primary" />
                       Why this plan is perfect for you
                     </h5>
-                    <ul className="text-sm text-muted-foreground space-y-1">
-                      {answers.numberOfChildren && answers.numberOfChildren > 3 && (
-                        <li>✓ Supports your {answers.numberOfChildren} children with the Family plan</li>
-                      )}
-                      {answers.numberOfChildren && answers.numberOfChildren <= 3 && (
-                        <li>✓ Ideal quota for {answers.numberOfChildren} {answers.numberOfChildren === 1 ? 'child' : 'children'}</li>
-                      )}
+                    <ul className="text-xs text-muted-foreground space-y-1">
+                      {answers.numberOfChildren &&
+                        answers.numberOfChildren > 3 && (
+                          <li>
+                            ✓ Supports your {answers.numberOfChildren} children
+                            with the Family plan
+                          </li>
+                        )}
+                      {answers.numberOfChildren &&
+                        answers.numberOfChildren <= 3 && (
+                          <li>
+                            ✓ Ideal quota for {answers.numberOfChildren}{" "}
+                            {answers.numberOfChildren === 1
+                              ? "child"
+                              : "children"}
+                          </li>
+                        )}
                       {answers.preferredDuration && (
-                        <li>✓ {answers.preferredDuration} month commitment gives you the best value</li>
+                        <li>
+                          ✓ {answers.preferredDuration} month commitment gives
+                          you best value
+                        </li>
                       )}
-                      {answers.learningGoals && answers.learningGoals.length > 0 && (
-                        <li>✓ Aligned with your goals: {answers.learningGoals.join(', ')}</li>
-                      )}
+                      {answers.learningGoals &&
+                        answers.learningGoals.length > 0 && (
+                          <li>
+                            ✓ Aligned with your goals:{" "}
+                            {answers.learningGoals.slice(0, 2).join(", ")}
+                          </li>
+                        )}
                     </ul>
                   </div>
                 </div>
               )}
 
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex gap-3">
                 <Button
                   variant="outline"
                   onClick={handleBack}
-                  className="flex-1 border-white/10 hover:bg-white/5"
+                  className="flex-1 border-white/10 hover:bg-white/5 text-sm"
                 >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Go Back
+                  <ArrowLeft className="w-4 h-4 mr-1" />
+                  Back
                 </Button>
                 <Button
                   variant="outline"
                   onClick={resetWizard}
-                  className="flex-1 border-white/10 hover:bg-white/5"
+                  className="flex-1 border-white/10 hover:bg-white/5 text-sm"
                 >
                   Start Over
                 </Button>
                 {recommendedPlan && (
                   <Button
                     onClick={() => onSelectPlan(recommendedPlan)}
-                    className="flex-1 bg-gradient-to-r from-primary via-zora-purple to-pink-500 hover:opacity-90 text-white font-semibold shadow-lg"
+                    className="flex-1 bg-gradient-to-r from-primary via-zora-purple to-pink-500 hover:opacity-90 text-white font-semibold text-sm"
                   >
-                    Select This Plan
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    Select Plan
+                    <ArrowRight className="w-4 h-4 ml-1" />
                   </Button>
                 )}
               </div>

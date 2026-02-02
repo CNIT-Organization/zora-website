@@ -98,12 +98,7 @@
           "name": "companySize",
           "label": "Company Size",
           "type": "select",
-          "options": [
-            "1-50",
-            "51-200",
-            "201-1000",
-            "1000+"
-          ],
+          "options": ["1-50", "51-200", "201-1000", "1000+"],
           "required": false
         },
         {

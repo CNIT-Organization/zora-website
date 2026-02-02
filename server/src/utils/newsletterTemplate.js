@@ -1,13 +1,17 @@
 export const createNewsletterEmailHTML = (data) => {
-  const sanitizedEmail = data.email ? data.email.replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
-  const formattedDate = data.date ? new Date(data.date).toLocaleString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  }) : new Date().toLocaleString();
+  const sanitizedEmail = data.email
+    ? data.email.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    : "";
+  const formattedDate = data.date
+    ? new Date(data.date).toLocaleString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : new Date().toLocaleString();
 
   return `
     <!DOCTYPE html>

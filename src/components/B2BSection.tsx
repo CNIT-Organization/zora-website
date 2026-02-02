@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 import {
   Building2,
   TrendingDown,
@@ -11,23 +11,23 @@ import {
   Send,
   Loader2,
   CheckCircle,
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { b2bBenefits } from '@/data/mockData';
-import type { B2BInquiry, InstitutionType } from '@/types';
+} from "@/components/ui/select";
+import { b2bBenefits } from "@/data/mockData";
+import type { B2BInquiry, InstitutionType } from "@/types";
 
 const iconMap: Record<string, React.ElementType> = {
-  'trending-down': TrendingDown,
+  "trending-down": TrendingDown,
   users: Users,
   building: Building2,
   chart: BarChart3,
@@ -35,80 +35,89 @@ const iconMap: Record<string, React.ElementType> = {
 
 export function B2BSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState<Partial<B2BInquiry>>({
-    institutionName: '',
-    institutionType: 'school',
-    contactName: '',
-    email: '',
-    phone: '',
+    institutionName: "",
+    institutionType: "school",
+    contactName: "",
+    email: "",
+    phone: "",
     estimatedStudents: 0,
-    requirements: '',
-    preferredContactMethod: 'email',
+    requirements: "",
+    preferredContactMethod: "email",
   });
 
   const validateField = (name: string, value: any): string => {
     switch (name) {
-      case 'institutionName':
-        if (!value || value.length < 2) return 'Institution name must be at least 2 characters long';
-        if (value.length > 200) return 'Institution name must not exceed 200 characters';
+      case "institutionName":
+        if (!value || value.length < 2)
+          return "Institution name must be at least 2 characters long";
+        if (value.length > 200)
+          return "Institution name must not exceed 200 characters";
         break;
-      case 'contactName':
-        if (!value || value.length < 2) return 'Name must be at least 2 characters long';
-        if (value.length > 100) return 'Name must not exceed 100 characters';
+      case "contactName":
+        if (!value || value.length < 2)
+          return "Name must be at least 2 characters long";
+        if (value.length > 100) return "Name must not exceed 100 characters";
         break;
-      case 'email':
-        if (!value) return 'Email is required';
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Please provide a valid email address';
+      case "email":
+        if (!value) return "Email is required";
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
+          return "Please provide a valid email address";
         break;
-      case 'phone':
-        if (!value) return 'Phone number is required';
+      case "phone":
+        if (!value) return "Phone number is required";
         // Remove spaces, dashes, parentheses for validation
-        const cleanPhone = value.replace(/[\s()-]/g, '');
-        if (cleanPhone.length < 8) return 'Please provide a valid phone number (at least 8 digits)';
-        if (cleanPhone.length > 20) return 'Phone number is too long';
+        const cleanPhone = value.replace(/[\s()-]/g, "");
+        if (cleanPhone.length < 8)
+          return "Please provide a valid phone number (at least 8 digits)";
+        if (cleanPhone.length > 20) return "Phone number is too long";
         break;
-      case 'estimatedStudents':
-        if (value && value < 1) return 'Number of students must be at least 1';
+      case "estimatedStudents":
+        if (value && value < 1) return "Number of students must be at least 1";
         break;
-      case 'requirements':
-        if (value && value.length > 2000) return 'Requirements must not exceed 2000 characters';
+      case "requirements":
+        if (value && value.length > 2000)
+          return "Requirements must not exceed 2000 characters";
         break;
     }
-    return '';
+    return "";
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate all required fields
     const newErrors: Record<string, string> = {};
-    newErrors.institutionName = validateField('institutionName', formData.institutionName);
-    newErrors.contactName = validateField('contactName', formData.contactName);
-    newErrors.email = validateField('email', formData.email);
-    newErrors.phone = validateField('phone', formData.phone);
-    
+    newErrors.institutionName = validateField(
+      "institutionName",
+      formData.institutionName,
+    );
+    newErrors.contactName = validateField("contactName", formData.contactName);
+    newErrors.email = validateField("email", formData.email);
+    newErrors.phone = validateField("phone", formData.phone);
+
     // Remove empty errors
-    Object.keys(newErrors).forEach(key => {
+    Object.keys(newErrors).forEach((key) => {
       if (!newErrors[key]) delete newErrors[key];
     });
-    
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-    
+
     setIsSubmitting(true);
     setErrors({});
 
     try {
-      const response = await fetch('/api/b2b', {
-        method: 'POST',
+      const response = await fetch("/api/b2b", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: formData.contactName,
@@ -117,7 +126,7 @@ export function B2BSection() {
           phone: formData.phone,
           institutionType: formData.institutionType,
           estimatedStudents: formData.estimatedStudents || null,
-          requirements: formData.requirements || '',
+          requirements: formData.requirements || "",
         }),
       });
 
@@ -126,14 +135,14 @@ export function B2BSection() {
       if (data.success) {
         setIsSubmitted(true);
         setFormData({
-          institutionName: '',
-          institutionType: 'school',
-          contactName: '',
-          email: '',
-          phone: '',
+          institutionName: "",
+          institutionType: "school",
+          contactName: "",
+          email: "",
+          phone: "",
           estimatedStudents: 0,
-          requirements: '',
-          preferredContactMethod: 'email',
+          requirements: "",
+          preferredContactMethod: "email",
         });
       } else {
         // Handle backend validation errors
@@ -144,25 +153,25 @@ export function B2BSection() {
           });
           setErrors(backendErrors);
         } else {
-          alert(data.message || 'Failed to submit request. Please try again.');
+          alert(data.message || "Failed to submit request. Please try again.");
         }
       }
     } catch (error) {
-      alert('Failed to submit request. Please try again later.');
+      alert("Failed to submit request. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    
+
     // Clear error for this field when user starts typing
     if (errors[name]) {
-      setErrors(prev => {
+      setErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[name];
         return newErrors;
@@ -170,11 +179,13 @@ export function B2BSection() {
     }
   };
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     const error = validateField(name, value);
     if (error) {
-      setErrors(prev => ({ ...prev, [name]: error }));
+      setErrors((prev) => ({ ...prev, [name]: error }));
     }
   };
 
@@ -194,7 +205,9 @@ export function B2BSection() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6">
             <Building2 className="w-4 h-4 text-zora-purple" />
-            <span className="text-sm font-medium text-zora-purple">For Institutions</span>
+            <span className="text-sm font-medium text-zora-purple">
+              For Institutions
+            </span>
           </div>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
             Transform Your
@@ -236,7 +249,9 @@ export function B2BSection() {
                 <h3 className="font-display text-lg font-bold mb-2">
                   {benefit.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                <p className="text-sm text-muted-foreground">
+                  {benefit.description}
+                </p>
               </motion.div>
             );
           })}
@@ -256,24 +271,24 @@ export function B2BSection() {
             <div className="space-y-6">
               {[
                 {
-                  title: 'Complete Ecosystem Management',
+                  title: "Complete Ecosystem Management",
                   description:
-                    'From admissions to graduation, manage your entire educational operation from one platform.',
+                    "From admissions to graduation, manage your entire educational operation from one platform.",
                 },
                 {
-                  title: 'AI-Powered Analytics',
+                  title: "AI-Powered Analytics",
                   description:
-                    'Get deep insights into student performance, identify at-risk students, and optimize learning outcomes.',
+                    "Get deep insights into student performance, identify at-risk students, and optimize learning outcomes.",
                 },
                 {
-                  title: 'Seamless Integration',
+                  title: "Seamless Integration",
                   description:
-                    'Zora integrates with your existing systems — LMS, SIS, and administrative tools.',
+                    "Zora integrates with your existing systems — LMS, SIS, and administrative tools.",
                 },
                 {
-                  title: 'Dedicated Support',
+                  title: "Dedicated Support",
                   description:
-                    'Our enterprise team provides hands-on onboarding, training, and 24/7 priority support.',
+                    "Our enterprise team provides hands-on onboarding, training, and 24/7 priority support.",
                 },
               ].map((item, i) => (
                 <div key={i} className="flex gap-4">
@@ -282,7 +297,9 @@ export function B2BSection() {
                   </div>
                   <div>
                     <h4 className="font-semibold mb-1">{item.title}</h4>
-                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -294,7 +311,7 @@ export function B2BSection() {
                 Trusted by 100+ institutions across the UAE
               </p>
               <div className="flex items-center gap-6">
-                {['🏫', '🎓', '📚', '🏛️'].map((emoji, i) => (
+                {["🏫", "🎓", "📚", "🏛️"].map((emoji, i) => (
                   <div
                     key={i}
                     className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-2xl"
@@ -324,7 +341,9 @@ export function B2BSection() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="institutionName">Institution Name *</Label>
+                      <Label htmlFor="institutionName">
+                        Institution Name *
+                      </Label>
                       <Input
                         id="institutionName"
                         name="institutionName"
@@ -333,10 +352,12 @@ export function B2BSection() {
                         onChange={handleInputChange}
                         onBlur={handleBlur}
                         required
-                        className={`mt-2 bg-white/5 border-white/10 ${errors.company ? 'border-red-500' : ''}`}
+                        className={`mt-2 bg-white/5 border-white/10 ${errors.company ? "border-red-500" : ""}`}
                       />
                       {errors.company && (
-                        <p className="text-red-500 text-sm mt-1">{errors.company}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.company}
+                        </p>
                       )}
                     </div>
                     <div>
@@ -356,7 +377,9 @@ export function B2BSection() {
                         <SelectContent>
                           <SelectItem value="school">School</SelectItem>
                           <SelectItem value="university">University</SelectItem>
-                          <SelectItem value="training_center">Training Center</SelectItem>
+                          <SelectItem value="training_center">
+                            Training Center
+                          </SelectItem>
                           <SelectItem value="other">Other</SelectItem>
                         </SelectContent>
                       </Select>
@@ -374,10 +397,12 @@ export function B2BSection() {
                         onChange={handleInputChange}
                         onBlur={handleBlur}
                         required
-                        className={`mt-2 bg-white/5 border-white/10 ${errors.name ? 'border-red-500' : ''}`}
+                        className={`mt-2 bg-white/5 border-white/10 ${errors.name ? "border-red-500" : ""}`}
                       />
                       {errors.name && (
-                        <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.name}
+                        </p>
                       )}
                     </div>
                     <div>
@@ -391,10 +416,12 @@ export function B2BSection() {
                         onChange={handleInputChange}
                         onBlur={handleBlur}
                         required
-                        className={`mt-2 bg-white/5 border-white/10 ${errors.email ? 'border-red-500' : ''}`}
+                        className={`mt-2 bg-white/5 border-white/10 ${errors.email ? "border-red-500" : ""}`}
                       />
                       {errors.email && (
-                        <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.email}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -411,32 +438,40 @@ export function B2BSection() {
                         onChange={handleInputChange}
                         onBlur={handleBlur}
                         required
-                        className={`mt-2 bg-white/5 border-white/10 ${errors.phone ? 'border-red-500' : ''}`}
+                        className={`mt-2 bg-white/5 border-white/10 ${errors.phone ? "border-red-500" : ""}`}
                       />
                       {errors.phone && (
-                        <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.phone}
+                        </p>
                       )}
                     </div>
                     <div>
-                      <Label htmlFor="estimatedStudents">Estimated Students</Label>
+                      <Label htmlFor="estimatedStudents">
+                        Estimated Students
+                      </Label>
                       <Input
                         id="estimatedStudents"
                         name="estimatedStudents"
                         type="number"
                         placeholder="500"
-                        value={formData.estimatedStudents || ''}
+                        value={formData.estimatedStudents || ""}
                         onChange={handleInputChange}
                         onBlur={handleBlur}
-                        className={`mt-2 bg-white/5 border-white/10 ${errors.estimatedStudents ? 'border-red-500' : ''}`}
+                        className={`mt-2 bg-white/5 border-white/10 ${errors.estimatedStudents ? "border-red-500" : ""}`}
                       />
                       {errors.estimatedStudents && (
-                        <p className="text-red-500 text-sm mt-1">{errors.estimatedStudents}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.estimatedStudents}
+                        </p>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <Label htmlFor="requirements">Requirements / Questions</Label>
+                    <Label htmlFor="requirements">
+                      Requirements / Questions
+                    </Label>
                     <Textarea
                       id="requirements"
                       name="requirements"
@@ -445,10 +480,12 @@ export function B2BSection() {
                       onChange={handleInputChange}
                       onBlur={handleBlur}
                       rows={4}
-                      className={`mt-2 bg-white/5 border-white/10 ${errors.requirements ? 'border-red-500' : ''}`}
+                      className={`mt-2 bg-white/5 border-white/10 ${errors.requirements ? "border-red-500" : ""}`}
                     />
                     {errors.requirements && (
-                      <p className="text-red-500 text-sm mt-1">{errors.requirements}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.requirements}
+                      </p>
                     )}
                   </div>
 
@@ -485,8 +522,8 @@ export function B2BSection() {
                   Thank You!
                 </h3>
                 <p className="text-muted-foreground mb-6">
-                  We've received your inquiry. Our enterprise team will contact you
-                  within 24 hours to schedule your demo.
+                  We've received your inquiry. Our enterprise team will contact
+                  you within 24 hours to schedule your demo.
                 </p>
                 <Button
                   onClick={() => setIsSubmitted(false)}

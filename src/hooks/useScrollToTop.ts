@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export function useScrollToTop() {
   const { pathname } = useLocation();
@@ -7,7 +7,7 @@ export function useScrollToTop() {
 
   useEffect(() => {
     setIsNavigating(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     const timer = setTimeout(() => setIsNavigating(false), 100);
     return () => clearTimeout(timer);
   }, [pathname]);

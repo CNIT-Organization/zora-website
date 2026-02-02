@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowLeft, CreditCard, Lock, Check, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import type { PricingPlan } from '@/types';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowLeft, CreditCard, Lock, Check, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import type { PricingPlan } from "@/types";
 
 interface CheckoutPageProps {
   plan: PricingPlan;
@@ -15,11 +15,11 @@ interface CheckoutPageProps {
 export function CheckoutPage({ plan, onBack, onSuccess }: CheckoutPageProps) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [formData, setFormData] = useState({
-    email: '',
-    name: '',
-    cardNumber: '',
-    expiryDate: '',
-    cvc: '',
+    email: "",
+    name: "",
+    cardNumber: "",
+    expiryDate: "",
+    cvc: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -58,12 +58,18 @@ export function CheckoutPage({ plan, onBack, onSuccess }: CheckoutPageProps) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="font-display text-2xl font-bold mb-6">Order Summary</h2>
+            <h2 className="font-display text-2xl font-bold mb-6">
+              Order Summary
+            </h2>
             <div className="glass-card p-6">
               <div className="flex justify-between items-start mb-6">
                 <div>
-                  <h3 className="font-display text-xl font-bold">{plan.name}</h3>
-                  <p className="text-sm text-muted-foreground">{plan.description}</p>
+                  <h3 className="font-display text-xl font-bold">
+                    {plan.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {plan.description}
+                  </p>
                 </div>
                 {plan.isPopular && (
                   <span className="bg-primary/20 text-primary text-xs px-2 py-1 rounded">
@@ -131,7 +137,9 @@ export function CheckoutPage({ plan, onBack, onSuccess }: CheckoutPageProps) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <h2 className="font-display text-2xl font-bold mb-6">Payment Details</h2>
+            <h2 className="font-display text-2xl font-bold mb-6">
+              Payment Details
+            </h2>
             <form onSubmit={handleSubmit} className="glass-card p-6">
               <div className="space-y-6">
                 {/* Email */}
@@ -233,8 +241,8 @@ export function CheckoutPage({ plan, onBack, onSuccess }: CheckoutPageProps) {
                 </Button>
 
                 <p className="text-xs text-center text-muted-foreground">
-                  By completing this purchase, you agree to our Terms of Service and
-                  Privacy Policy.
+                  By completing this purchase, you agree to our Terms of Service
+                  and Privacy Policy.
                 </p>
               </div>
             </form>

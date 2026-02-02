@@ -1,9 +1,15 @@
-import { Suspense, useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Sphere, MeshDistortMaterial, Stars } from '@react-three/drei';
-import * as THREE from 'three';
+import { Suspense, useRef, useMemo } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Float, Sphere, MeshDistortMaterial, Stars } from "@react-three/drei";
+import * as THREE from "three";
 
-function AnimatedSphere({ position, color, speed = 1, distort = 0.3, scale = 1 }: {
+function AnimatedSphere({
+  position,
+  color,
+  speed = 1,
+  distort = 0.3,
+  scale = 1,
+}: {
   position: [number, number, number];
   color: string;
   speed?: number;
@@ -21,7 +27,12 @@ function AnimatedSphere({ position, color, speed = 1, distort = 0.3, scale = 1 }
 
   return (
     <Float speed={2} rotationIntensity={1} floatIntensity={2}>
-      <Sphere ref={meshRef} args={[1, 64, 64]} position={position} scale={scale}>
+      <Sphere
+        ref={meshRef}
+        args={[1, 64, 64]}
+        position={position}
+        scale={scale}
+      >
         <MeshDistortMaterial
           color={color}
           attach="material"
@@ -35,7 +46,11 @@ function AnimatedSphere({ position, color, speed = 1, distort = 0.3, scale = 1 }
   );
 }
 
-function FloatingRing({ position, color, scale = 1 }: {
+function FloatingRing({
+  position,
+  color,
+  scale = 1,
+}: {
   position: [number, number, number];
   color: string;
   scale?: number;
@@ -115,8 +130,16 @@ export function Hero3DScene() {
         <Suspense fallback={null}>
           {/* Ambient lighting */}
           <ambientLight intensity={0.2} />
-          <directionalLight position={[10, 10, 5]} intensity={1} color="#ffffff" />
-          <pointLight position={[-10, -10, -5]} intensity={0.5} color="#00d4ff" />
+          <directionalLight
+            position={[10, 10, 5]}
+            intensity={1}
+            color="#ffffff"
+          />
+          <pointLight
+            position={[-10, -10, -5]}
+            intensity={0.5}
+            color="#00d4ff"
+          />
           <pointLight position={[5, 5, 5]} intensity={0.3} color="#a855f7" />
 
           {/* Main sphere */}

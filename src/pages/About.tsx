@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Users, Target, Award, Globe, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/Footer';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft, Users, Target, Award, Globe, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 const About = () => {
   const navigate = useNavigate();
@@ -24,12 +24,12 @@ const About = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
         className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-white/10"
-        style={{ top: '80px' }}
+        style={{ top: "80px" }}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-16">
             <button
-              onClick={() => navigate('/')}
+              onClick={() => navigate("/")}
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -56,8 +56,9 @@ const About = () => {
               About <span className="text-primary">Zora</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Revolutionizing education in the UAE through innovative AI-powered learning solutions.
-              We're on a mission to transform how students learn, grow, and succeed.
+              Revolutionizing education in the UAE through innovative AI-powered
+              learning solutions. We're on a mission to transform how students
+              learn, grow, and succeed.
             </p>
           </motion.div>
         </div>
@@ -74,12 +75,15 @@ const About = () => {
               className="glass-card p-8 rounded-2xl"
             >
               <Target className="w-12 h-12 text-primary mb-6" />
-              <h2 className="font-display text-2xl font-bold mb-4">Our Mission</h2>
+              <h2 className="font-display text-2xl font-bold mb-4">
+                Our Mission
+              </h2>
               <p className="text-muted-foreground">
-                To democratize access to world-class education through AI technology.
-                We believe every child deserves personalized learning experiences that adapt
-                to their unique needs, abilities, and learning pace. Our mission is to
-                empower students across the UAE and beyond to reach their full potential.
+                To democratize access to world-class education through AI
+                technology. We believe every child deserves personalized
+                learning experiences that adapt to their unique needs,
+                abilities, and learning pace. Our mission is to empower students
+                across the UAE and beyond to reach their full potential.
               </p>
             </motion.div>
 
@@ -90,12 +94,15 @@ const About = () => {
               className="glass-card p-8 rounded-2xl"
             >
               <Globe className="w-12 h-12 text-zora-purple mb-6" />
-              <h2 className="font-display text-2xl font-bold mb-4">Our Vision</h2>
+              <h2 className="font-display text-2xl font-bold mb-4">
+                Our Vision
+              </h2>
               <p className="text-muted-foreground">
-                To be the leading educational technology platform in the Middle East,
-                setting new standards for AI-driven learning. We envision a future where
-                technology and education work together to create engaging, effective,
-                and accessible learning experiences for students of all ages.
+                To be the leading educational technology platform in the Middle
+                East, setting new standards for AI-driven learning. We envision
+                a future where technology and education work together to create
+                engaging, effective, and accessible learning experiences for
+                students of all ages.
               </p>
             </motion.div>
           </div>
@@ -121,19 +128,22 @@ const About = () => {
             {[
               {
                 icon: Award,
-                title: 'Excellence',
-                description: 'We strive for excellence in every aspect of our platform, from content quality to user experience.'
+                title: "Excellence",
+                description:
+                  "We strive for excellence in every aspect of our platform, from content quality to user experience.",
               },
               {
                 icon: Users,
-                title: 'Student-First',
-                description: "Every decision we make is centered around what is best for students and their learning journey."
+                title: "Student-First",
+                description:
+                  "Every decision we make is centered around what is best for students and their learning journey.",
               },
               {
                 icon: Globe,
                 title: "Innovation",
-                description: "We continuously push the boundaries of what is possible in educational technology."
-              }
+                description:
+                  "We continuously push the boundaries of what is possible in educational technology.",
+              },
             ].map((value, index) => (
               <motion.div
                 key={value.title}
@@ -143,7 +153,9 @@ const About = () => {
                 className="glass-card p-8 rounded-2xl text-center"
               >
                 <value.icon className="w-12 h-12 text-primary mx-auto mb-6" />
-                <h3 className="font-display text-xl font-bold mb-4">{value.title}</h3>
+                <h3 className="font-display text-xl font-bold mb-4">
+                  {value.title}
+                </h3>
                 <p className="text-muted-foreground">{value.description}</p>
               </motion.div>
             ))}
@@ -163,22 +175,29 @@ const About = () => {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="font-display text-3xl font-bold mb-6">
-                  A Product of <span className="text-primary">Cloud Native IT Solutions</span>
+                  A Product of{" "}
+                  <span className="text-primary">
+                    Cloud Native IT Solutions
+                  </span>
                 </h2>
                 <p className="text-muted-foreground mb-6">
-                  Zora is developed and maintained by CNIT Solutions, a leading technology
-                  company based in Dubai, UAE. With years of experience in software development
-                  and educational technology, our team is dedicated to creating innovative
-                  solutions that make a real difference in students' lives.
+                  Zora is developed and maintained by CNIT Solutions, a leading
+                  technology company based in Dubai, UAE. With years of
+                  experience in software development and educational technology,
+                  our team is dedicated to creating innovative solutions that
+                  make a real difference in students' lives.
                 </p>
                 <p className="text-muted-foreground">
-                  Our commitment to quality, innovation, and student success has made us a
-                  trusted name in educational technology across the region.
+                  Our commitment to quality, innovation, and student success has
+                  made us a trusted name in educational technology across the
+                  region.
                 </p>
               </div>
               <div className="text-center">
                 <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-primary to-zora-purple flex items-center justify-center mx-auto mb-6">
-                  <span className="font-display text-4xl font-bold text-primary-foreground">Z</span>
+                  <span className="font-display text-4xl font-bold text-primary-foreground">
+                    Z
+                  </span>
                 </div>
                 <p className="text-sm text-muted-foreground">
                   Dubai, United Arab Emirates
