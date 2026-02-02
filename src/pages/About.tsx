@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Users, Target, Award, Globe, Loader2 } from "lucide-react";
+import { Users, Target, Award, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { ZoraLogo, ParentCompanyLogo } from "@/components/Logo";
 
 const About = () => {
-  const navigate = useNavigate();
   const [isWizardOpen, setIsWizardOpen] = useState(false);
 
   const handleGetStarted = () => {
@@ -17,27 +16,6 @@ const About = () => {
   return (
     <div className="min-h-screen">
       <Navbar onGetStarted={handleGetStarted} />
-
-      {/* Navigation */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-white/10"
-        style={{ top: "80px" }}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16">
-            <button
-              onClick={() => navigate("/")}
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm">Back to Home</span>
-            </button>
-          </div>
-        </div>
-      </motion.nav>
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
@@ -194,14 +172,20 @@ const About = () => {
                 </p>
               </div>
               <div className="text-center">
-                <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-primary to-zora-purple flex items-center justify-center mx-auto mb-6">
-                  <span className="font-display text-4xl font-bold text-primary-foreground">
-                    Z
-                  </span>
+                <div className="flex flex-col items-center gap-6">
+                  <ZoraLogo 
+                    variant="wordmark" 
+                    size="custom" 
+                    width={200} 
+                    height={200}
+                    className="mb-4"
+                  />
+                  <div className="h-px w-32 bg-gradient-to-r from-transparent via-primary to-transparent mb-4" />
+                  <ParentCompanyLogo size="lg" />
+                  <p className="text-sm text-muted-foreground mt-4">
+                    Dubai, United Arab Emirates
+                  </p>
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  Dubai, United Arab Emirates
-                </p>
               </div>
             </div>
           </motion.div>

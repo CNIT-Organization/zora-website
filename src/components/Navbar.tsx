@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ZoraLogo } from "@/components/Logo";
 import { env } from "@/config/env";
 
 interface NavbarProps {
@@ -63,12 +64,8 @@ export function Navbar({ onGetStarted }: NavbarProps) {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-zora-purple flex items-center justify-center">
-                <span className="text-xl font-bold text-primary-foreground">
-                  Z
-                </span>
-              </div>
+            <a href="/" className="flex items-center gap-3">
+              <ZoraLogo variant="icon" size="md" className="w-10 h-10" />
               <span className="font-display text-2xl font-bold text-foreground">
                 Zora
               </span>

@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
 const Terms = () => {
-  const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
   const [isWizardOpen, setIsWizardOpen] = useState(false);
 
@@ -18,27 +14,6 @@ const Terms = () => {
   return (
     <div className="min-h-screen">
       <Navbar onGetStarted={handleGetStarted} />
-
-      {/* Navigation */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-white/10"
-        style={{ top: "80px" }}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16">
-            <button
-              onClick={() => navigate("/")}
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm">Back to Home</span>
-            </button>
-          </div>
-        </div>
-      </motion.nav>
 
       {/* Content */}
       <section className="pt-32 pb-20 relative overflow-hidden">

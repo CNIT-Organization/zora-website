@@ -2,16 +2,14 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
-  ArrowLeft,
   Download,
   Mail,
-  FileText,
   Image,
-  Globe,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { ZoraLogo, ParentCompanyLogo } from "@/components/Logo";
 
 const Press = () => {
   const navigate = useNavigate();
@@ -21,30 +19,18 @@ const Press = () => {
     setIsWizardOpen(true);
   };
 
+  const handleDownload = (url: string, filename: string) => {
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="min-h-screen">
       <Navbar onGetStarted={handleGetStarted} />
-
-      {/* Navigation */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-white/10"
-        style={{ top: "80px" }}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16">
-            <button
-              onClick={() => navigate("/")}
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm">Back to Home</span>
-            </button>
-          </div>
-        </div>
-      </motion.nav>
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
@@ -135,26 +121,31 @@ const Press = () => {
             >
               <div className="flex items-center gap-4 mb-6">
                 <Image className="w-8 h-8 text-primary" />
-                <h3 className="font-display text-xl font-bold">Logo</h3>
+                <h3 className="font-display text-xl font-bold">Zora Logo</h3>
               </div>
-              <div className="bg-white/5 rounded-xl p-8 mb-6 flex items-center justify-center">
-                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary to-zora-purple flex items-center justify-center">
-                  <span className="text-4xl font-bold text-primary-foreground">
-                    Z
-                  </span>
-                </div>
+              <div className="bg-white/5 rounded-xl p-8 mb-6 flex items-center justify-center min-h-[200px]">
+                <ZoraLogo 
+                  variant="wordmark" 
+                  size="custom" 
+                  width={180} 
+                  height={180}
+                />
               </div>
-              <div className="flex gap-4">
-                <Button className="flex-1 bg-primary hover:bg-primary/90">
+              <div className="space-y-3">
+                <Button 
+                  className="w-full bg-primary hover:bg-primary/90"
+                  onClick={() => handleDownload("/logos/zora/logo-wordmark-light.svg", "zora-logo-wordmark.svg")}
+                >
                   <Download className="w-4 h-4 mr-2" />
-                  PNG
+                  SVG Wordmark (Vector)
                 </Button>
                 <Button
                   variant="outline"
-                  className="flex-1 border-white/20 hover:bg-white/10"
+                  className="w-full border-white/20 hover:bg-white/10"
+                  onClick={() => handleDownload("/logos/zora/logo-icon-512x512-light.svg", "zora-logo-icon.svg")}
                 >
                   <Download className="w-4 h-4 mr-2" />
-                  SVG
+                  SVG Icon (Vector)
                 </Button>
               </div>
             </motion.div>
@@ -166,21 +157,92 @@ const Press = () => {
               className="glass-card p-8 rounded-2xl"
             >
               <div className="flex items-center gap-4 mb-6">
-                <FileText className="w-8 h-8 text-zora-purple" />
+                <Image className="w-8 h-8 text-zora-purple" />
                 <h3 className="font-display text-xl font-bold">
-                  Brand Guidelines
+                  Parent Company Logo
                 </h3>
               </div>
-              <p className="text-muted-foreground mb-6">
-                Complete brand guidelines including logo usage, color palette,
-                typography, and tone of voice for consistent representation.
-              </p>
-              <Button className="w-full bg-primary hover:bg-primary/90">
-                <Download className="w-4 h-4 mr-2" />
-                Download Brand Guidelines
-              </Button>
+              <div className="bg-white/5 rounded-xl p-8 mb-6 flex items-center justify-center min-h-[200px]">
+                <ParentCompanyLogo size="xl" />
+              </div>
+              <div className="space-y-3">
+                <Button 
+                  className="w-full bg-primary hover:bg-primary/90"
+                  onClick={() => handleDownload("/logos/parent-company/cnits-icon.svg", "cnits-icon.svg")}
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  SVG Icon (Vector)
+                </Button>
+                <p className="text-xs text-muted-foreground text-center">
+                  Use CNITS icon + "CNIT Solutions" text
+                </p>
+              </div>
             </motion.div>
           </div>
+
+          {/* Logo Variations */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mt-8"
+          >
+            <h3 className="font-display text-2xl font-bold mb-6 text-center">
+              Logo Variations
+            </h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* Icon Only */}
+              <div className="glass-card p-6 rounded-xl">
+                <p className="text-sm text-muted-foreground mb-4">Icon Only</p>
+                <div className="bg-white/5 rounded-lg p-6 flex items-center justify-center mb-4 h-32">
+                  <ZoraLogo variant="icon" size="xl" />
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="w-full border-white/20 hover:bg-white/10"
+                  onClick={() => handleDownload("/logos/zora/logo-icon-128x128-light.svg", "zora-icon.svg")}
+                >
+                  <Download className="w-3 h-3 mr-2" />
+                  Download SVG
+                </Button>
+              </div>
+
+              {/* Wordmark */}
+              <div className="glass-card p-6 rounded-xl">
+                <p className="text-sm text-muted-foreground mb-4">Wordmark</p>
+                <div className="bg-white/5 rounded-lg p-6 flex items-center justify-center mb-4 h-32">
+                  <ZoraLogo variant="wordmark" size="custom" width={120} height={120} />
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="w-full border-white/20 hover:bg-white/10"
+                  onClick={() => handleDownload("/logos/zora/logo-wordmark-light.svg", "zora-wordmark.svg")}
+                >
+                  <Download className="w-3 h-3 mr-2" />
+                  Download SVG
+                </Button>
+              </div>
+
+              {/* Full Logo */}
+              <div className="glass-card p-6 rounded-xl">
+                <p className="text-sm text-muted-foreground mb-4">Full Logo</p>
+                <div className="bg-white/5 rounded-lg p-6 flex items-center justify-center mb-4 h-32">
+                  <ZoraLogo variant="full" size="xl" />
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="w-full border-white/20 hover:bg-white/10"
+                  onClick={() => handleDownload("/logos/zora/logo-icon-512x512-light.svg", "zora-full.svg")}
+                >
+                  <Download className="w-3 h-3 mr-2" />
+                  Download SVG
+                </Button>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 

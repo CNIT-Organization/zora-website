@@ -8,6 +8,7 @@ import {
   ExternalLink,
   Loader2,
 } from "lucide-react";
+import { ZoraLogo, ParentCompanyLogo } from "@/components/Logo";
 import { env } from "@/config/env";
 import { useNavigate } from "react-router-dom";
 
@@ -121,12 +122,8 @@ export function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <a href="/" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-zora-purple flex items-center justify-center">
-                <span className="text-xl font-bold text-primary-foreground">
-                  Z
-                </span>
-              </div>
+            <a href="/" className="flex items-center gap-3 mb-6">
+              <ZoraLogo variant="icon" size="md" className="w-10 h-10" />
               <span className="font-display text-2xl font-bold text-foreground">
                 Zora
               </span>
@@ -274,10 +271,11 @@ export function Footer() {
             href={env.CNIT_WEBSITE}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="flex items-center gap-3 text-sm group transition-opacity hover:opacity-80"
           >
-            A Product of Cloud Native IT Solutions
-            <ExternalLink className="w-3 h-3" />
+            <span className="text-muted-foreground">A Product of</span>
+            <ParentCompanyLogo size="sm" />
+            <ExternalLink className="w-3 h-3 text-muted-foreground" />
           </a>
         </div>
       </div>
